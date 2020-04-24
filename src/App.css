@@ -1,3 +1,7 @@
+body {
+  font-family: Muli !important;
+}
+
 h1 {
   font-family: Muli;
   font-weight: bold;
@@ -71,8 +75,9 @@ p {
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  line-height: 22px;
+  /* line-height: 22px; */
   letter-spacing: 0.3px;
+  margin: 0 !important;
 }
 
 p.small {
@@ -80,7 +85,7 @@ p.small {
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
-  line-height: 20px;
+  /* line-height: 20px; */
   letter-spacing: 0.2px;
 }
 

@@ -2,18 +2,21 @@ import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 import ButtonUI from "./views/components/Button/Button";
+import Home from "./views/screens/Home/Home";
+import Navbar from "./views/components/Navbar/Navbar";
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <h1>App js</h1>
-        <ButtonUI>Button</ButtonUI>
-        <ButtonUI type="outlined">Button</ButtonUI>
-        <ButtonUI type="textual">Button</ButtonUI>
-      </div>
+      <>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </>
     );
   }
 }
