@@ -4,7 +4,6 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-import ButtonUI from "./views/components/Button/Button";
 import Home from "./views/screens/Home/Home";
 import Navbar from "./views/components/Navbar/Navbar";
 
