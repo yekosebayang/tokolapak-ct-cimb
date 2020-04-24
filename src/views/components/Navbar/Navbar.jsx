@@ -6,6 +6,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import ButtonUI from "../Button/Button.tsx";
 
 const CircleBg = ({ children }) => {
   return <div className="circle-bg">{children}</div>;
@@ -45,7 +46,7 @@ class Navbar extends React.Component {
           />
         </div>
         <div className="d-flex flex-row align-items-center">
-          <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
+          {/* <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
           <p className="small ml-3 mr-4">Profile</p>
           <FontAwesomeIcon
             className="mr-2"
@@ -54,7 +55,11 @@ class Navbar extends React.Component {
           />
           <CircleBg>
             <small style={{ color: "#3C64B1", fontWeight: "bold" }}>4</small>
-          </CircleBg>
+          </CircleBg> */}
+          <ButtonUI className="mr-3" type="textual">
+            Sign in
+          </ButtonUI>
+          <ButtonUI type="contained">Sign up</ButtonUI>
         </div>
       </div>
     );
