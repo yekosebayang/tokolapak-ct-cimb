@@ -1,13 +1,21 @@
 import React from "react";
-import logo from "./logo.svg";
+import { Route, Switch, withRouter } from "react-router-dom";
+
 import "./App.css";
 
-function App() {
-  return (
-    <div>
-      <h1>App js</h1>
-    </div>
-  );
+import ButtonUI from "./views/components/Button/Button";
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>App js</h1>
+        <ButtonUI>Button</ButtonUI>
+        <ButtonUI type="outlined">Button</ButtonUI>
+        <ButtonUI type="textual">Button</ButtonUI>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default withRouter(App);
