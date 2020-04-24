@@ -1,12 +1,11 @@
 import React from "react";
 import "./Button.css";
-import { ClassType } from "@types/react";
 
 type ButtonTypes = {
   type: "contained" | "outlined" | "textual";
   children: any;
-  style: object;
-  className: string;
+  style?: object;
+  className?: string;
 };
 
 const ButtonUI = (props: ButtonTypes) => {
