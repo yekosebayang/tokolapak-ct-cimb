@@ -111,3 +111,12 @@ caption {
   line-height: 60px;
   letter-spacing: 0.2px;
 }
+
+.btn-text {
+  font-family: Muli;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.3px;
+}

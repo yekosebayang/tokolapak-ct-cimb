@@ -1,0 +1,48 @@
+:root {
+  --accent-default: #3c64b1;
+  --accent-dark: #1e4693;
+  --accent-light: #5a82cf;
+}
+
+.custom-btn {
+  padding: 12px 18px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Muli;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.3px;
+}
+
+.custom-btn-outlined {
+  border: 1px solid var(--accent-default);
+  color: var(--accent-default);
+}
+
+.custom-btn-outlined:hover {
+  border: 1px solid var(--accent-light);
+  color: var(--accent-light);
+}
+
+.custom-btn-outlined:active {
+  border: 1px solid var(--accent-dark);
+  color: var(--accent-dark);
+}
+
+.custom-btn-contained {
+  background-color: var(--accent-default);
+  color: white;
+}
+
+.custom-btn-contained:hover {
+  background-color: var(--accent-light);
+  color: white;
+}
+
+.custom-btn-contained:active {
+  background-color: var(--accent-dark);
+  color: white;
+}
