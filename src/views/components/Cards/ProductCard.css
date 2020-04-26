@@ -15,6 +15,7 @@
   transition: all ease 150ms;
   box-sizing: border-box;
   width: 259px;
+  border: 1px solid var(--gray-divider);
 }
 
 .product-card:hover {
