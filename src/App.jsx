@@ -15,6 +15,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
         </Switch>
+        <div style={{ height: "120px" }} />
       </>
     );
   }

@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Carousel, CarouselControl, CarouselItem } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faShippingFast,
+  faMoneyBillWave,
+  faHeadset,
+} from "@fortawesome/free-solid-svg-icons";
 import "./Home.css";
 
 import ProductCard from "../../components/Cards/ProductCard.tsx";
@@ -10,6 +16,7 @@ import iPhone8 from "../../../assets/images/Showcase/iPhone-8.png";
 import iPadPro from "../../../assets/images/Showcase/iPad-Pro.png";
 import ButtonUI from "../../components/Button/Button";
 import CarouselShowcaseItem from "./CarouselShowcaseItem.tsx";
+import Colors from "../../../constants/Colors";
 
 const dummy = [
   {
@@ -136,14 +143,67 @@ class Home extends React.Component {
             onClickHandler={this.nextHandler}
           />
         </Carousel>
-        <div className="container mt-5">
-          <h2 className="text-center font-weight-bolder">BEST SELLER</h2>
-          <div className="row d-flex flex-wrap">
+        <div className="container">
+          {/* BEST SELLER SECTION */}
+          <h2 className="text-center font-weight-bolder mt-5">BEST SELLER</h2>
+          <div className="row d-flex flex-wrap justify-content-center">
             <ProductCard className="m-2" />
             <ProductCard className="m-2" />
             <ProductCard className="m-2" />
             <ProductCard className="m-2" />
             <ProductCard className="m-2" />
+            <ProductCard className="m-2" />
+            <ProductCard className="m-2" />
+            <ProductCard className="m-2" />
+          </div>
+        </div>
+        {/* ABOUT SECTION */}
+        <div
+          className="py-5"
+          style={{ marginTop: "128px", backgroundColor: Colors.lightestGray }}
+        >
+          <div className="container">
+            <div className="row">
+              <div className="col-4 text-center d-flex flex-column align-items-center">
+                <FontAwesomeIcon
+                  icon={faShippingFast}
+                  style={{ fontSize: 70, color: Colors.accentLight }}
+                />
+                <h3 className="font-weight-bolder mt-4">FAST SHIPPING</h3>
+                <p className="mt-4">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic
+                  impedit facilis nam vitae, accusamus doloribus alias
+                  repellendus veniam voluptates ad doloremque sequi est, at
+                  fugit pariatur quisquam ratione, earum sapiente.
+                </p>
+              </div>
+              <div className="col-4 text-center d-flex flex-column align-items-center">
+                <FontAwesomeIcon
+                  icon={faMoneyBillWave}
+                  style={{ fontSize: 70, color: Colors.accentLight }}
+                />
+                <h3 className="font-weight-bolder mt-4">100% REFUND</h3>
+                <p className="mt-4">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic
+                  impedit facilis nam vitae, accusamus doloribus alias
+                  repellendus veniam voluptates ad doloremque sequi est, at
+                  fugit pariatur quisquam ratione, earum sapiente.
+                </p>
+              </div>
+              <div className="col-4 text-center d-flex flex-column align-items-center">
+                <FontAwesomeIcon
+                  icon={faHeadset}
+                  style={{ fontSize: 70, color: Colors.accentLight }}
+                />
+                <h3 className="font-weight-bolder mt-4">SUPPORT 24/7</h3>
+                <p className="mt-4">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic
+                  impedit facilis nam vitae, accusamus doloribus alias
+                  repellendus veniam voluptates ad doloremque sequi est, at
+                  fugit pariatur quisquam ratione, earum sapiente.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
