@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/tokolapak/static/css/main.c3a1dae0.chunk.css",
+    "main.js": "/tokolapak/static/js/main.ab5e647a.chunk.js",
+    "main.js.map": "/tokolapak/static/js/main.ab5e647a.chunk.js.map",
+    "runtime-main.js": "/tokolapak/static/js/runtime-main.72eadef8.js",
+    "runtime-main.js.map": "/tokolapak/static/js/runtime-main.72eadef8.js.map",
+    "static/css/2.74189dbb.chunk.css": "/tokolapak/static/css/2.74189dbb.chunk.css",
+    "static/js/2.ca299e63.chunk.js": "/tokolapak/static/js/2.ca299e63.chunk.js",
+    "static/js/2.ca299e63.chunk.js.map": "/tokolapak/static/js/2.ca299e63.chunk.js.map",
+    "index.html": "/tokolapak/index.html",
+    "precache-manifest.e37c71991ac18434b2436948554d9b16.js": "/tokolapak/precache-manifest.e37c71991ac18434b2436948554d9b16.js",
+    "service-worker.js": "/tokolapak/service-worker.js",
+    "static/css/2.74189dbb.chunk.css.map": "/tokolapak/static/css/2.74189dbb.chunk.css.map",
+    "static/css/main.c3a1dae0.chunk.css.map": "/tokolapak/static/css/main.c3a1dae0.chunk.css.map",
+    "static/js/2.ca299e63.chunk.js.LICENSE.txt": "/tokolapak/static/js/2.ca299e63.chunk.js.LICENSE.txt",
+    "static/media/iPad-Pro.png": "/tokolapak/static/media/iPad-Pro.15f8989a.png",
+    "static/media/iPhone-8.png": "/tokolapak/static/media/iPhone-8.c31abdb7.png",
+    "static/media/iPhone-X.png": "/tokolapak/static/media/iPhone-X.55596440.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.72eadef8.js",
+    "static/css/2.74189dbb.chunk.css",
+    "static/js/2.ca299e63.chunk.js",
+    "static/css/main.c3a1dae0.chunk.css",
+    "static/js/main.ab5e647a.chunk.js"
+  ]
+}
