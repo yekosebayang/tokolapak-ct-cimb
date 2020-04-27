@@ -1,11 +1,28 @@
 import React from "react";
 import TextField from "../../components/TextField/TextField";
 import ButtonUI from "../../components/Button/Button";
+import Cookie from 'universal-cookie'
+import "./AuthScreen.css";
+
+import {loginHandler} from "../../../redux/actions";
+import {connect} from 'react-redux'
+
+const cookieObject = new Cookie()
 
 class AuthScreen extends React.Component {
+  componentDidUpdate(){
+        if (this.props.user.id){
+            cookieObject.set("authData", JSON.stringify(this.props.user))
+         }
+    }
+
   render() {
     return (
       <div className="container">
+        <div className="row mt-5">
+          <input className="custom-btn2-white mr-2" value="Register"/>
+          <input className="custom-btn2-black" value="Login"/>
+        </div>
         <div className="row mt-5">
           <div className="col-5">
             <div>
@@ -30,4 +47,13 @@ class AuthScreen extends React.Component {
   }
 }
 
-export default AuthScreen;
+const mapStateToProps = (state) => {
+  return{
+      user: state.userReducer
+  }
+}
+const mapDispatchToProps = {
+  loginHandler
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen)
+

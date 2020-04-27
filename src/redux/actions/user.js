@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { API_URL } from '../../constants/API'
 import userTypes from '../types/user'
 
-const {ON_LOGIN_SUCCESS,ON_LOGIN_FAILED,ON_LOGOUT_SUCCES} = userTypes;
+const {ON_LOGIN_SUCCESS,ON_LOGIN_FAIL,ON_LOGOUT_SUCCESS, ON_REGISTER_FAIL} = userTypes;
 
 export const loginHandler = (userData) => {
     return (dispatch) => { // anggap dispatch = return
@@ -18,13 +18,13 @@ export const loginHandler = (userData) => {
             console.log(res)
             if (res.data.length>0){
                 dispatch({
-                    type: "ON_LOGIN_SUCCESS",
+                    type: ON_LOGIN_SUCCESS,
                     payload: res.data[0]
                 })
             }
             else {
                 dispatch({
-                    type: "ON_LOGIN_FAIL",
+                    type: ON_LOGIN_FAIL,
                     payload: "Username atau password salah"
                 })
             }
@@ -83,7 +83,7 @@ export const userKeepLogin = (userData) => {
             }
             else {
                 dispatch({
-                    type: ON_LOGIN_FAILED,
+                    type: ON_LOGIN_FAIL,
                     payload: "Username atau password salah"
                 })
             }

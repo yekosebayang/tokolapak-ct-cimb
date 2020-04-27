@@ -1,0 +1,49 @@
+.custom-btn2-white {
+    font-family: Muli;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.1px;
+    color: #373F41;
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+    /* position: absolute; */
+    width: 103px;
+    height: 42px;
+    /* left: 284px; */
+    /* top: 136px; */
+    background: #FFFFFF;
+    border: 1px solid #E2E5E6;
+    box-sizing: border-box;
+}
+
+.custom-btn2-black {
+    font-family: Muli;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.1px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+    /* position: absolute; */
+    width: 103px;
+    height: 42px;
+    /* left: 165px; */
+    /* top: 136px; */
+    background: #373F41;
+}

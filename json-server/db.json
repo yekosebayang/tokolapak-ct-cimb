@@ -1,9 +1,18 @@
 {
   "users": [
     {
-      "username": "seto",
-      "password": "password",
-      "id": 1
+      "id": 1,
+      "username": "qwe",
+      "password": "qwe",
+      "role": "user",
+      "fullName": "Uvu qwe qwe qwe"
+    },
+    {
+      "id": 2,
+      "username": "asd",
+      "password": "asd",
+      "role": "user",
+      "fullName": "Osas asd asd asd"
     }
   ]
 }
