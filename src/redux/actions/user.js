@@ -3,6 +3,7 @@ import Axios from 'axios'
 import { API_URL } from '../../constants/API'
 import userTypes from '../types/user'
 
+
 const {ON_LOGIN_SUCCESS,ON_LOGIN_FAIL,ON_LOGOUT_SUCCESS, ON_REGISTER_FAIL} = userTypes;
 
 export const loginHandler = (userData) => {
@@ -35,37 +36,37 @@ export const loginHandler = (userData) => {
     }
 }
 
-export const registerHandler = (userData) => {
-    return (dispatch) => { // anggap dispatch = return
-        Axios.get(`${API_URL}users`, {
-            params: {
-              username: userData.username,
-            },
-        })
-        .then((res) => {
-            if (res.data.length > 0) {
-                dispatch({
-                    type: ON_REGISTER_FAIL,
-                    payload: "username sudah digunakan",
-                });
-            }
-            else{
-                Axios.post(`${API_URL}users`, userData)
-                // langsung dari form nya, yang di regis.jsx
-                .then(res => {
-                    console.log(res.data)
-                    dispatch({
-                        type: ON_LOGIN_SUCCESS,
-                        payload: res.data
-                    })
-                })
-                .catch(err => {
-                    console.log(err)
-                });
-            }
-        })
-    };
-};
+// export const registerHandler = (userData) => {
+//     return (dispatch) => { // anggap dispatch = return
+//         Axios.get(`${API_URL}users`, {
+//             params: {
+//               username: userData.username,
+//             },
+//         })
+//         .then((res) => {
+//             if (res.data.length > 0) {
+//                 dispatch({
+//                     type: ON_REGISTER_FAIL,
+//                     payload: "username sudah digunakan",
+//                 });
+//             }
+//             else{
+//                 Axios.post(`${API_URL}users`, userData)
+//                 // langsung dari form nya, yang di regis.jsx
+//                 .then(res => {
+//                     console.log(res.data)
+//                     dispatch({
+//                         type: ON_LOGIN_SUCCESS,
+//                         payload: res.data
+//                     })
+//                 })
+//                 .catch(err => {
+//                     console.log(err)
+//                 });
+//             }
+//         })
+//     };
+// };
 
 export const userKeepLogin = (userData) => {
     return (dispatch) => {
@@ -94,16 +95,16 @@ export const userKeepLogin = (userData) => {
     }
 }
 
-export const logoutHandler = () => {
-  cookieObj.remove("authData");
-  return {
-    type: ON_LOGOUT_SUCCESS,
-  };
-};
+// export const logoutHandler = () => {
+//   cookieObj.remove("authData");
+//   return {
+//     type: ON_LOGOUT_SUCCESS,
+//   };
+// };
 
 export const registerHandler = (userData) => {
   return (dispatch) => {
-    Axios.get(`${API_URL}/users`, {
+    Axios.get(`${API_URL}users`, {
       params: {
         username: userData.username,
       },
@@ -115,7 +116,7 @@ export const registerHandler = (userData) => {
             payload: "Username sudah digunakan",
           });
         } else {
-          Axios.post(`${API_URL}/users`, userData)
+          Axios.post(`${API_URL}users`, userData)
             .then((res) => {
               console.log(res.data);
               dispatch({

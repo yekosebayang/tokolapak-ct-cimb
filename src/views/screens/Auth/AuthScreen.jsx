@@ -156,10 +156,6 @@ class AuthScreen extends React.Component {
     return (
       <div className="container">
         <div className="row mt-5">
-          <input className="custom-btn2-white mr-2" value="Register"/>
-          <input className="custom-btn2-black" value="Login"/>
-        </div>
-        <div className="row mt-5">
           <div className="col-5">
             <div className="d-flex flex-row">
               <ButtonUI
@@ -169,7 +165,7 @@ class AuthScreen extends React.Component {
                 type="outlined"
                 onClick={() => this.setState({ activePage: "register" })}
               >
-                Register
+                Registers
               </ButtonUI>
               <ButtonUI
                 className={`ml-3 auth-screen-btn ${
