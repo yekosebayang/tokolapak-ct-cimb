@@ -39,5 +39,4 @@ class TextField extends React.Component<TextFieldProps> {
     );
   }
 }
-
 export default TextField;

@@ -27,6 +27,18 @@ class AuthScreen extends React.Component {
     },
   };
 
+  checkBoxHandler(e, form) {
+    const target = e.target
+    const checked = target.name 
+
+    this.setState({
+      [form]: {
+        ...this.state[form],
+        showPassword: checked
+      }
+    })
+  }
+
   componentDidUpdate() {
     if (this.props.user.id) {
       const cookie = new Cookies();
@@ -104,6 +116,9 @@ class AuthScreen extends React.Component {
             placeholder="Password"
             className="mt-2"
           />
+          <input type="checkbox" onChange={(e) => this.checkBoxHandler(e, "registerForm")} 
+          className="mt-3" name="showPasswordRegister"/>{" "}
+          Show Pasword
           <div className="d-flex justify-content-center">
             <ButtonUI
               type="contained"
@@ -135,6 +150,8 @@ class AuthScreen extends React.Component {
             placeholder="Password"
             className="mt-2"
           />
+          <input type="checkbox" onChange={(e) => this.checkBoxHandler(e, "registerForm")}
+           className="mt-3" name="showPasswordLogin"/>{" "}
           <div className="d-flex justify-content-center">
             <ButtonUI
               onClick={this.loginBtnHandler}
