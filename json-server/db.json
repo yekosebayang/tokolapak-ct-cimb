@@ -4,6 +4,20 @@
       "username": "seto",
       "password": "password",
       "id": 1
+    },
+    {
+      "username": "doraemon",
+      "fullName": "Dora Emon",
+      "password": "password",
+      "email": "doraemon@mail.com",
+      "id": 2
+    },
+    {
+      "username": "pikachu",
+      "fullName": "Dora Emon",
+      "password": "password",
+      "email": "doraemon@mail.com",
+      "id": 3
     }
   ]
 }
