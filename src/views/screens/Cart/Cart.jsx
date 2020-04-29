@@ -9,11 +9,17 @@ class Cart extends React.Component {
     componentDidMount() {
         Axios.get(`${API_URL}/cart`, {
             params: {
-                userId: 
+                userId: this.props.user.id,
+                _expand: "product"
             }
-        }
-        )
-    }
+        })
+        .then((res) =>{
+            console.log(res.data)
+        })
+        .catch((err) =>{
+            console.log(err)
+        })
+}
 
     render() {
         return (

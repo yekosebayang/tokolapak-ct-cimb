@@ -52,7 +52,6 @@ class Navbar extends React.Component {
         <div className="d-flex flex-row align-items-center">
           {this.props.user.id ? (
             <>
-<<<<<<< HEAD
             <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
             <p className="small ml-3 mr-4">{this.props.user.username}</p>
             <FontAwesomeIcon
@@ -80,39 +79,6 @@ class Navbar extends React.Component {
                 Sign up
               </Link>
             </ButtonUI>
-=======
-              <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
-              <p className="small ml-3 mr-4">{this.props.user.username}</p>
-              <FontAwesomeIcon
-                className="mr-2"
-                icon={faShoppingCart}
-                style={{ fontSize: 24 }}
-              />
-              <CircleBg>
-                <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
-                  4
-                </small>
-              </CircleBg>
-            </>
-          ) : (
-            <>
-              <ButtonUI className="mr-3" type="textual">
-                <Link
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  to="/auth"
-                >
-                  Sign in
-                </Link>
-              </ButtonUI>
-              <ButtonUI type="contained">
-                <Link
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  to="/auth"
-                >
-                  Sign up
-                </Link>
-              </ButtonUI>
->>>>>>> b93bbcedd1843a9b08248db72ad49d7de4d1c3ed
             </>
           )}
         </div>
@@ -128,7 +94,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Navbar);
-<<<<<<< HEAD
-
-=======
->>>>>>> b93bbcedd1843a9b08248db72ad49d7de4d1c3ed
