@@ -11,7 +11,7 @@ import Home from "./views/screens/Home/Home";
 import Navbar from "./views/components/Navbar/Navbar";
 import AuthScreen from "./views/screens/Auth/AuthScreen";
 import ProductDetails from "./views/screens/ProductDetails/ProductDetails";
-import { userKeepLogin } from "./redux/actions";
+import { userKeepLogin, cookieChecker } from "./redux/actions";
 import Cart from "./views/screens/Cart/Cart";
 
 const cookieObj = new Cookie();
@@ -21,22 +21,28 @@ class App extends React.Component {
     let cookieResult = cookieObj.get("authData");
     if (cookieResult) {
       this.props.keepLogin(cookieResult);
+    } else {
+      this.props.cookieChecker()
     }
   }
 
   render() {
-    return (
-      <>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/auth" component={AuthScreen} />
-          <Route exact path="/product/:id" component={ProductDetails} />
-          <Route exact path="/cart" component={Cart} />
-        </Switch>
-        <div style={{ height: "120px" }} />
-      </>
-    );
+    if (this.props.user.cookieChecked) {
+      return (
+        <>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/auth" component={AuthScreen} />
+            <Route exact path="/product/:id" component={ProductDetails} />
+            <Route exact path="/cart" component={Cart} />
+          </Switch>
+          <div style={{ height: "120px" }} />
+        </>
+      );
+    } else {
+      return <div>Loading . . .</div>
+    }
   }
 }
 
@@ -48,6 +54,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   keepLogin: userKeepLogin,
+  cookieChecker
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

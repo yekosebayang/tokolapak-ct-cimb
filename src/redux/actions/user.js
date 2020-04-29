@@ -1,10 +1,12 @@
 // disini yang nentuin apa yang dikirim ke global state
 import Axios from 'axios'
 import { API_URL } from '../../constants/API'
+import Cookie from "universal-cookie"
 import userTypes from '../types/user'
 
 
 const {ON_LOGIN_SUCCESS,ON_LOGIN_FAIL,ON_LOGOUT_SUCCESS, ON_REGISTER_FAIL} = userTypes;
+const cookieObj = new Cookie();
 
 export const loginHandler = (userData) => {
     return (dispatch) => { // anggap dispatch = return
@@ -95,12 +97,12 @@ export const userKeepLogin = (userData) => {
     }
 }
 
-// export const logoutHandler = () => {
-//   cookieObj.remove("authData");
-//   return {
-//     type: ON_LOGOUT_SUCCESS,
-//   };
-// };
+export const logoutHandler = () => {
+  cookieObj.remove("authData");
+  return {
+    type: ON_LOGOUT_SUCCESS,
+  };
+};
 
 export const registerHandler = (userData) => {
   return (dispatch) => {
@@ -134,3 +136,9 @@ export const registerHandler = (userData) => {
       });
   };
 };
+
+export const cookieChecker = () => {
+  return {
+    type: "COOKIE_CHECK"
+  }
+}

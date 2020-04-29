@@ -8,8 +8,6 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "./Navbar.css";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import ButtonUI from "../Button/Button.tsx";
 
 const CircleBg = ({ children }) => {
