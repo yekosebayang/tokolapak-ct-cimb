@@ -95,6 +95,14 @@
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-wifi-select-space-201909_geo_us.png",
       "desc": "iPad baru",
       "id": 8
+    },
+    {
+      "productName": "OPPO Find X2 Pro",
+      "price": "5300000",
+      "category": "Phone",
+      "image": "https://image.oppo.com/content/dam/oppo/id/mkt/header/Compass-Pro%20orange-EN.png",
+      "desc": "Keluaran terbaru dari OPPO guys, STOCK TERBATAS!!",
+      "id": 9
     }
   ],
   "carts": [
@@ -133,24 +141,6 @@
       "productId": 1,
       "quantity": 1,
       "id": 6
-    }
-  ],
-  "transactions": [
-    {
-      "userId": 2,
-      "totalPrice": 10000000,
-      "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 +",
-          "price": 5000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1
-        }
-      ],
-      "id": 1
     }
   ]
 }
