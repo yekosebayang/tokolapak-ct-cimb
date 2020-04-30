@@ -18,7 +18,7 @@ const cookieObj = new Cookie();
 class App extends React.Component {
   componentDidMount() {
     setTimeout(() => {
-      let cookieResult = cookieObj.get("authData");
+      let cookieResult = cookieObj.get("authData"); 
       if (cookieResult) {
         this.props.keepLogin(cookieResult);
       } else {
