@@ -25,7 +25,7 @@ class App extends React.Component {
     } else {
       this.props.cookieChecker()
     }
-  }
+}
 
   renderAdminRoutes = () => {
     if (this.props.user.role == "admin"){
@@ -34,6 +34,12 @@ class App extends React.Component {
       )
     }
   }
+
+  renderAdminRoutes = () => {
+    if (this.props.user.role === "admin") {
+      return <Route exact path="/admin/dashboard" component={AdminDashboard} />;
+    }
+  };
 
   render() {
     if (this.props.user.cookieChecked) {
@@ -64,7 +70,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   keepLogin: userKeepLogin,
-  cookieChecker
+  cookieChecker,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
+
+/**
+ * PR
+ * 1. Add to cart, jika barang double, qty yg akan bertambah
+ * 2. Di Home, ketika click PHONE/LAPTOP/TAB/DESKTOP
+ * 3. Di navbar, ketika ketik, secara otomatis filter products
+ * 4. Di cart, buat button checkout, serta dengan proses checkout
+ * 5. Ketika confirm checkout, lakukan POST request ke db.json ke transaction
+ *    -> lalu cart harus kosong
+ */

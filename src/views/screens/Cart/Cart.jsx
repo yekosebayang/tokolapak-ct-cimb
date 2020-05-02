@@ -5,7 +5,7 @@ import Axios from "axios"
 import { API_URL } from "../../../constants/API"
 import ButtonUI from "../../components/Button/Button";
 import { getDefaultNormalizer } from "@testing-library/react"
-import {Alert } from "reactstrap"
+import {Table, Alert} from "reactstrap"
 import { Link } from "react-router-dom"
 
 class Cart extends React.Component {
@@ -31,11 +31,6 @@ class Cart extends React.Component {
         .catch((err) =>{
             console.log(err)
         })
-    }
-
-    componentDidUpdate (dataKeranjang) {
-        if (dataKeranjang.length >= 0) {
-            console.log("data keranjang masoook")}
     }
 
     hapusKeranjang = (id,name) => {

@@ -22,13 +22,21 @@
       "password": "zxc",
       "email": "zxc@zxc.com",
       "id": 3
+    },
+    {
+      "username": "admin",
+      "fullName": "Super Admin",
+      "password": "password",
+      "email": "admin@mail.com",
+      "role": "admin",
+      "id": 4
     }
   ],
   "products": [
     {
-      "productName": "iPhone 7 Plus",
+      "productName": "iPhone 7 +",
       "price": 5000000,
-      "category": "Phone",
+      "category": "Tab",
       "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
       "desc": "HP Terbaikk loh",
       "id": 1
@@ -36,7 +44,7 @@
     {
       "productName": "iPad Pro 3",
       "price": 15000000,
-      "category": "Tablet",
+      "category": "Tab",
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
       "desc": "HP Terbaikk loh",
       "id": 2
@@ -73,7 +81,7 @@
       "id": 6
     }
   ],
-  "cart": [
+  "carts": [
     {
       "userId": 2,
       "productId": 2,

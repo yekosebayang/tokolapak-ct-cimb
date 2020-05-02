@@ -41,8 +41,9 @@ class AuthScreen extends React.Component {
 
   componentDidUpdate() {
     if (this.props.user.id) {
+      alert("login");
       const cookie = new Cookies();
-      cookie.set("authData", JSON.stringify(this.props.user));
+      cookie.set("authData", JSON.stringify(this.props.user), { path: "/" });
     }
   }
 
@@ -54,6 +55,8 @@ class AuthScreen extends React.Component {
         [field]: value,
       },
     });
+
+    console.log(e.target);
 
     // this.setState({ loginForm: {
     //   ...this.state.loginForm,

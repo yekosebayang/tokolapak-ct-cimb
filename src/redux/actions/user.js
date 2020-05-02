@@ -98,7 +98,7 @@ export const userKeepLogin = (userData) => {
 }
 
 export const logoutHandler = () => {
-  cookieObj.remove("authData");
+  cookieObj.remove("authData", { path: "/" });
   return {
     type: ON_LOGOUT_SUCCESS,
   };
@@ -139,6 +139,6 @@ export const registerHandler = (userData) => {
 
 export const cookieChecker = () => {
   return {
-    type: "COOKIE_CHECK"
-  }
-}
+    type: "COOKIE_CHECK",
+  };
+};
