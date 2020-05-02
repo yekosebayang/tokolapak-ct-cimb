@@ -18,7 +18,7 @@ class Cart extends React.Component {
     }
 
     biarGarefresh = () => {
-        Axios.get(`${API_URL}cart`, {
+        Axios.get(`${API_URL}carts`, {
             params: {
                 userId: this.props.user.id,
                 _expand: "product"
@@ -26,6 +26,7 @@ class Cart extends React.Component {
         })
         .then((res) =>{
             this.setState({ dataKeranjang: res.data })
+            console.log("data keranjang below")
             console.log(this.state.dataKeranjang)
         })
         .catch((err) =>{
@@ -34,7 +35,7 @@ class Cart extends React.Component {
     }
 
     hapusKeranjang = (id,name) => {
-        Axios.delete(`${API_URL}cart/${id}`)
+        Axios.delete(`${API_URL}carts/${id}`)
         .then((res) => {
             alert(`${name}berhasil dihapus`)
             console.log(res.data)
@@ -52,6 +53,7 @@ class Cart extends React.Component {
                     <th>{idx+1}</th>
                     <th>{val.product.productName}</th>
                     <th>{val.product.price}</th>
+                    <th>{val.quantity}</th>
                     <th>{val.product.category}</th>
                     <th><img src={val.product.image} width="60px" className="contained"/></th>
                     <th>
@@ -74,6 +76,7 @@ class Cart extends React.Component {
                         <tr>
                         <th>No</th>
                         <th>Produk</th>
+                        <th>qty</th>
                         <th>Harga</th>
                         <th>Kategori</th>
                         <th>Image</th>
@@ -87,6 +90,7 @@ class Cart extends React.Component {
                 </div>
               )
         } else {
+            console.log(this.state.dataKeranjang.length)
             return(
                 <Alert>
                     keranjang anda kosong, <Link to="/">Yuk!! belanja</Link>

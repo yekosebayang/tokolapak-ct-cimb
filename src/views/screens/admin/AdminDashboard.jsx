@@ -33,7 +33,7 @@ class AdminDashboard extends React.Component {
   };
 
   getProductList = () => {
-    Axios.get(`${API_URL}/products`)
+    Axios.get(`${API_URL}products`)
       .then((res) => {
         this.setState({ productList: res.data });
       })
@@ -47,7 +47,7 @@ class AdminDashboard extends React.Component {
       const { id, productName, price, category, image, desc } = val;
       return (
         <>
-          <tr
+          <tr key={`DataProduk1-${id}`}
             onClick={() => {
               if (this.state.activeProducts.includes(idx)) {
                 this.setState({
@@ -72,7 +72,7 @@ class AdminDashboard extends React.Component {
               }).format(price)}{" "}
             </td>
           </tr>
-          <tr
+          <tr key={`DataProduk2-${id}`}
             className={`collapse-item ${
               this.state.activeProducts.includes(idx) ? "active" : null
             }`}
@@ -110,7 +110,10 @@ class AdminDashboard extends React.Component {
                   >
                     Edit
                   </ButtonUI>
-                  <ButtonUI className="mt-3" type="textual">
+                  <ButtonUI
+                    className="mt-3" type="textual"
+                    onClick={(_) => this.deleteBtnHandler(id, productName)}
+                  >
                     Delete
                   </ButtonUI>
                 </div>
@@ -133,7 +136,7 @@ class AdminDashboard extends React.Component {
   };
 
   createProductHandler = () => {
-    Axios.post(`${API_URL}/products`, this.state.createForm)
+    Axios.post(`${API_URL}products`, this.state.createForm)
       .then((res) => {
         swal("Success!", "Your item has been added to the list", "success");
         this.setState({
@@ -161,9 +164,21 @@ class AdminDashboard extends React.Component {
     });
   };
 
+  deleteBtnHandler = (id,name) => {
+    Axios.delete(`${API_URL}products/${id}`)
+    .then((res) => {
+        swal("Success!", name +" has been deleted from the list", "success")
+        console.log(res.data)
+       this.getProductList();
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
   editProductHandler = () => {
     Axios.put(
-      `${API_URL}/products/${this.state.editForm.id}`,
+      `${API_URL}products/${this.state.editForm.id}`,
       this.state.editForm
     )
       .then((res) => {

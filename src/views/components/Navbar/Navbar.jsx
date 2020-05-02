@@ -120,14 +120,15 @@ class Navbar extends React.Component {
             <ButtonUI className="mr-3" type="textual">
               <Link
               style ={{ textDecoration: "none", color: "inherit"}}
-              to="/auth">
+              to="/auth/login">
+                {/* <Redirect to={`/product/${this.props.data.id}`} /> */}
                 Sign in
               </Link>
             </ButtonUI>
             <ButtonUI type="contained">
               <Link
                 style ={{ textDecoration: "none", color: "inherit"}}
-                to="/auth">
+                to="/auth/register">
                 Sign up
               </Link>
             </ButtonUI>

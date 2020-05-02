@@ -18,23 +18,16 @@
     },
     {
       "username": "zxc",
-      "fullName": "zxc",
+      "fullName": "zxc kmzwawy delapan 7 AA",
       "password": "zxc",
+      "role": "user",
       "email": "zxc@zxc.com",
       "id": 3
-    },
-    {
-      "username": "admin",
-      "fullName": "Super Admin",
-      "password": "password",
-      "email": "admin@mail.com",
-      "role": "admin",
-      "id": 4
     }
   ],
   "products": [
     {
-      "productName": "iPhone 7 +",
+      "productName": "iPhone 7+",
       "price": 5000000,
       "category": "Tab",
       "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
@@ -58,27 +51,11 @@
       "id": 3
     },
     {
-      "productName": "Iphone 11",
+      "productName": "iPhone 11",
       "price": "24000000",
       "desc": "Iphone geng",
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-11-pro-max-midnight-green_3.png",
       "id": 4
-    },
-    {
-      "productName": "Xiaomi",
-      "price": "2999999",
-      "desc": "xiaomi kece",
-      "image": "https://i01.appmifile.com/webfile/globalimg/5/160715D9-C15A-3A0E-B59B-B8EAC9813B4B.png",
-      "category": "Phone",
-      "id": 5
-    },
-    {
-      "productName": "Ipad Pro",
-      "price": "12000000",
-      "desc": "Tab",
-      "image": "https://ibox.co.id/media/catalog/category/menu-ipad-gen-7.png",
-      "category": "Tab",
-      "id": 6
     }
   ],
   "carts": [
@@ -99,6 +76,18 @@
       "productId": 1,
       "quantity": 1,
       "id": 3
+    },
+    {
+      "userId": 3,
+      "productId": 2,
+      "quantity": 4,
+      "id": 4
+    },
+    {
+      "userId": 3,
+      "productId": 1,
+      "quantity": 2,
+      "id": 5
     }
   ]
 }

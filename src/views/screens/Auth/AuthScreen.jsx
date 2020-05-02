@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 import TextField from "../../components/TextField/TextField";
@@ -12,7 +12,7 @@ import { registerHandler, loginHandler } from "../../../redux/actions";
 
 class AuthScreen extends React.Component {
   state = {
-    activePage: "register",
+    activePage: "",
     loginForm: {
       username: "",
       password: "",
@@ -27,6 +27,11 @@ class AuthScreen extends React.Component {
     },
   };
 
+  // componentDidMount(){
+  //   console.log(this.props.match.params.pg)
+  //   this.setState({activePage: this.props.match.params.pg})
+  // }
+
   checkBoxHandler(e, form) {
     const target = e.target
     const checked = target.name 
@@ -39,11 +44,19 @@ class AuthScreen extends React.Component {
     })
   }
 
+  componentDidMount(){
+    this.setState({activePage: this.props.match.params.pg})
+  }
+
   componentDidUpdate() {
     if (this.props.user.id) {
       alert("login");
       const cookie = new Cookies();
       cookie.set("authData", JSON.stringify(this.props.user), { path: "/" });
+    }
+    if (this.props.match.params.pg != this.state.activePage){
+      let temp = this.props.match.params.pg
+      this.setState({activePage: temp})
     }
   }
 
@@ -56,7 +69,7 @@ class AuthScreen extends React.Component {
       },
     });
 
-    console.log(e.target);
+    // console.log(e.target);
 
     // this.setState({ loginForm: {
     //   ...this.state.loginForm,
@@ -101,12 +114,14 @@ class AuthScreen extends React.Component {
 
   renderAuthComponent = () => {
     const { activePage } = this.state;
-    if (activePage == "register") {
+    // alert(activePage)
+    if (activePage === "register") {
       return (
         <div className="mt-5">
           <h3>Register</h3>
           <p className="mt-4">
             You will get the best recommendation for rent house in near of you
+            {this.props.match.params.pg}
           </p>
           <TextField
             value={this.state.registerForm.username}
@@ -185,6 +200,7 @@ class AuthScreen extends React.Component {
     }
   };
 
+  // render button
   render() {
     if (this.props.user.id > 0) {
       return <Redirect to="/" />;
@@ -199,18 +215,26 @@ class AuthScreen extends React.Component {
                   this.state.activePage == "register" ? "active" : null
                 }`}
                 type="outlined"
-                onClick={() => this.setState({ activePage: "register" })}
+                // onClick={() => this.setState({ activePage: "register" })}
               >
-                Registers
+                <Link
+                style ={{ textDecoration: "none", color: "inherit"}}
+                to="/auth/register">
+                  Registers
+                </Link>
               </ButtonUI>
               <ButtonUI
                 className={`ml-3 auth-screen-btn ${
                   this.state.activePage == "login" ? "active" : null
                 }`}
                 type="outlined"
-                onClick={() => this.setState({ activePage: "login" })}
+                // onClick={() => this.setState({ activePage: "login" })}
               >
-                Login
+                <Link
+                style ={{ textDecoration: "none", color: "inherit"}}
+                to="/auth/login">
+                  Login
+                </Link>
               </ButtonUI>
             </div>
             {this.props.user.errMsg ? (

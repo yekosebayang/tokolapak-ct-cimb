@@ -5,6 +5,8 @@ import Axios from "axios"
 import { API_URL } from "../../../constants/API";
 import { connect, shallowEqual } from "react-redux"
 import { faSwatchbook } from "@fortawesome/free-solid-svg-icons";
+import swal from "sweetalert";
+
 
 class ProductDetails extends React.Component {
     state ={
@@ -24,31 +26,84 @@ class ProductDetails extends React.Component {
     renderProdukDetail = () => {
         Axios.get(`${API_URL}products/${this.props.match.params.id}`)
         .then((res) => {
-            console.log(res)
-            this.setState({ productData: res.data
-            })
+            // console.log(res.data)
+            this.setState({ productData: res.data})
         })
         .catch((err) =>{
             console.log(err)
         })
     }
 
+    // addToCartHandler = (name) => {
+    //     // POST method ke /cart
+    //     // Isinya: userId, productId, quantity
+    //     // console.log(this.props.user.id);
+    //     Axios.post(`${API_URL}/id si kart`,{
+    //         userId: this.props.user.id,
+    //         productId: this.state.productData.id,
+    //         quantity: 1,
+    //     })
+    //     .then((res) => {
+    //         console.log(res)
+    //         this.setState({ productData: res.data})
+    //         // alert(`${name} masuk keranjang`)
+    //         swal("Add to cart", name+" has been added to your cart", "success");
+    //         this.renderProdukDetail()
+            
+    //     })
+    //     .catch((err) =>{
+    //         swal("Add to cart" , `${name} failed added to your cart 😋` , "error");
+    //         console.log(err)
+    //     })
+    // }
+
     addToCartHandler = (name) => {
         // POST method ke /cart
         // Isinya: userId, productId, quantity
         // console.log(this.props.user.id);
-        Axios.post(`${API_URL}cart`,{
-            userId: this.props.user.id,
-            productId: this.state.productData.id,
-            quantity: 1,
+        Axios.get(`${API_URL}carts` ,{
+            params: {
+                userId: this.props.user.id,
+                productId: this.state.productData.id,
+            }
         })
         .then((res) => {
-            console.log(res)
-            this.setState({ productData: res.data})
-            alert(`${name} masuk keranjang`)
-            // swal("Add to cart", "Your item has been added to your cart", "success");
-            this.renderProdukDetail()
-            
+            console.log(res.data)
+            if (res.data.length > 0){ //tambah qty
+                let cartId = res.data[0].id
+                let temp = (res.data[0].quantity) + 1
+                // console.log(`kuantiti= ${res.data[0].quantity}`)
+                // console.log(`id= ${res.data[0].id}`)
+                // console.log(`kuantiti nambah= ${temp}`)
+                Axios.put(`${API_URL}carts/${cartId}`,{ //tambah qty
+                            userId: this.props.user.id,
+                            productId: this.state.productData.id,
+                            quantity: temp,
+                })
+                .then((res) => { //tambah qty
+                    swal("Add to cart", `${name} berhasil ditambah kekeranjang` , "success");
+                })
+                .catch((err) => {//tambah qty
+                    swal("Add to cart" , `${name} failed added to your cart 😋 ${err}` , "error");
+                })
+            } else { //data masih 0
+                // swal("Add to cart" , `data belum ada, beli dulu` , "error");
+                Axios.post(`${API_URL}carts`,{
+                    userId: this.props.user.id,
+                    productId: this.state.productData.id,
+                    quantity: 1,
+                })
+                .then((res) => {
+                    console.log(res)
+                    this.setState({ productData: res.data})
+                    swal("Add to cart", `${name} berhasil ditambah kekeranjang` , "success");    
+                })
+                .catch((err) =>{
+                swal("Add to cart" , `${name} failed added to your cart 😋` , "error");
+                console.log(err)
+                })
+            }
+            this.renderProdukDetail()   
         })
         .catch((err) =>{
             console.log(err)
