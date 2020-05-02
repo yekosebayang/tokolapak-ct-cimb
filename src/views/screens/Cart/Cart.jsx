@@ -5,6 +5,8 @@ import Axios from "axios"
 import { API_URL } from "../../../constants/API"
 import ButtonUI from "../../components/Button/Button";
 import { getDefaultNormalizer } from "@testing-library/react"
+import {Alert } from "reactstrap"
+import { Link } from "react-router-dom"
 
 class Cart extends React.Component {
     state = {
@@ -32,7 +34,7 @@ class Cart extends React.Component {
     }
 
     componentDidUpdate (dataKeranjang) {
-        if (dataKeranjang.length !== dataKeranjang.length) {
+        if (dataKeranjang.length >= 0) {
             console.log("data keranjang masoook")}
     }
 
@@ -56,7 +58,7 @@ class Cart extends React.Component {
                     <th>{val.product.productName}</th>
                     <th>{val.product.price}</th>
                     <th>{val.product.category}</th>
-                    <th><img src={val.product.image} width="60px"/></th>
+                    <th><img src={val.product.image} width="60px" className="contained"/></th>
                     <th>
                         <ButtonUI
                         onClick={()=>this.hapusKeranjang(val.id,val.product.productName)}
@@ -69,25 +71,34 @@ class Cart extends React.Component {
     }
 
     render() {
-      return (
-        <div className="container">
-            <table className="table table-hover">
-            <thead>
-                <tr>
-                <th>No</th>
-                <th>Produk</th>
-                <th>Harga</th>
-                <th>Kategori</th>
-                <th>Image</th>
-                <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {this.renderCart()}
-            </tbody>
-            </table>
-        </div>
-    );
+        if (this.state.dataKeranjang.length > 0){
+            return (
+                <div className="container">
+                    <table className="table table-hover">
+                    <thead>
+                        <tr>
+                        <th>No</th>
+                        <th>Produk</th>
+                        <th>Harga</th>
+                        <th>Kategori</th>
+                        <th>Image</th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderCart()}
+                    </tbody>
+                    </table>
+                </div>
+              )
+        } else {
+            return(
+                <Alert>
+                    keranjang anda kosong, <Link to="/">Yuk!! belanja</Link>
+                </Alert>
+            )
+        }
+      
   }
 }
 

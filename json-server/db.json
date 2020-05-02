@@ -4,8 +4,8 @@
       "id": 1,
       "username": "qwe",
       "password": "qwe",
-      "role": "user",
-      "fullName": "Uvu qwe qwe qwe",
+      "role": "admin",
+      "fullName": "Uvu qwe qwe qwe Admin asik",
       "email": "qwe@qwe.com"
     },
     {
@@ -48,6 +48,29 @@
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/m/b/mbp15touch-silver-select-cto-201807_3_1.jpeg",
       "desc": "HP Terbaikk loh",
       "id": 3
+    },
+    {
+      "productName": "Iphone 11",
+      "price": "24000000",
+      "desc": "Iphone geng",
+      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-11-pro-max-midnight-green_3.png",
+      "id": 4
+    },
+    {
+      "productName": "Xiaomi",
+      "price": "2999999",
+      "desc": "xiaomi kece",
+      "image": "https://i01.appmifile.com/webfile/globalimg/5/160715D9-C15A-3A0E-B59B-B8EAC9813B4B.png",
+      "category": "Phone",
+      "id": 5
+    },
+    {
+      "productName": "Ipad Pro",
+      "price": "12000000",
+      "desc": "Tab",
+      "image": "https://ibox.co.id/media/catalog/category/menu-ipad-gen-7.png",
+      "category": "Tab",
+      "id": 6
     }
   ],
   "cart": [
@@ -67,7 +90,7 @@
       "userId": 1,
       "productId": 1,
       "quantity": 1,
-      "id": 4
+      "id": 3
     }
   ]
 }

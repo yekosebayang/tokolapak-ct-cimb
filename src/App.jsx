@@ -11,6 +11,7 @@ import Home from "./views/screens/Home/Home";
 import Navbar from "./views/components/Navbar/Navbar";
 import AuthScreen from "./views/screens/Auth/AuthScreen";
 import ProductDetails from "./views/screens/ProductDetails/ProductDetails";
+import AdminDashboard from "./views/screens/admin/AdminDashboard";
 import { userKeepLogin, cookieChecker } from "./redux/actions";
 import Cart from "./views/screens/Cart/Cart";
 
@@ -26,6 +27,14 @@ class App extends React.Component {
     }
   }
 
+  renderAdminRoutes = () => {
+    if (this.props.user.role == "admin"){
+      return(
+        <Route exact path="/admin/dashboard" component={AdminDashboard} />
+      )
+    }
+  }
+
   render() {
     if (this.props.user.cookieChecked) {
       return (
@@ -36,6 +45,7 @@ class App extends React.Component {
             <Route exact path="/auth" component={AuthScreen} />
             <Route exact path="/product/:id" component={ProductDetails} />
             <Route exact path="/cart" component={Cart} />
+            {this.renderAdminRoutes()}
           </Switch>
           <div style={{ height: "120px" }} />
         </>

@@ -18,6 +18,10 @@ class ProductDetails extends React.Component {
         }
     }
     componentDidMount() {
+        this.renderProdukDetail()
+    }
+
+    renderProdukDetail = () => {
         Axios.get(`${API_URL}products/${this.props.match.params.id}`)
         .then((res) => {
             console.log(res)
@@ -39,7 +43,7 @@ class ProductDetails extends React.Component {
             console.log(res)
             this.setState({ productData: res.data})
             alert(`${name} masuk keranjang`)
-            this.render()
+            this.renderProdukDetail()
             
         })
         .catch((err) =>{
