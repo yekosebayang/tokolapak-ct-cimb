@@ -91,12 +91,12 @@ class AdminDashboard extends React.Component {
 
     editProductHandler = () => {
         Axios.put(`${API_URL}products/${this.state.editForm.id}` , this.state.editForm)
-        .then((res){
+        .then((res) => {
             console.log(res)
             alert("sukses edit")
             this.getListProduk()
         })
-        .catch((err){
+        .catch((err) => {
             console.log(err)
         })
     }
