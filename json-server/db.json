@@ -29,7 +29,7 @@
     {
       "productName": "iPhone 7+",
       "price": 5000000,
-      "category": "Tab",
+      "category": "Phone",
       "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
       "desc": "HP Terbaikk loh",
       "id": 1
@@ -55,7 +55,8 @@
       "price": "24000000",
       "desc": "Iphone geng",
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-11-pro-max-midnight-green_3.png",
-      "id": 4
+      "id": 4,
+      "category": "Phone"
     }
   ],
   "carts": [

@@ -48,6 +48,7 @@ class App extends React.Component {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/home/:opt" component={Home} />
             <Route exact path="/auth/:pg" component={AuthScreen} />
             <Route exact path="/product/:id" component={ProductDetails} />
             <Route exact path="/cart" component={Cart} />

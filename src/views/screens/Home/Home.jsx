@@ -52,6 +52,7 @@ class Home extends React.Component {
     activeIndex: 0,
     bestSellerData: [],
     animating: false,
+    page: ""
   };
 
   renderCarouselItems = () => {
@@ -119,6 +120,7 @@ class Home extends React.Component {
     .catch(err => {
       console.log(err)      
     })
+    this.renderProducts()
   }
 
   renderProducts = () => {
@@ -127,24 +129,56 @@ class Home extends React.Component {
     })
   }
 
+  getSelectedData = () => {
+    Axios.get(`${API_URL}products`,
+    {
+      params: {
+      category: this.props.match.params.opt,
+      }
+    })
+    .then(res => {
+      console.log(res.data)
+      this.setState({ bestSellerData: res.data})
+    })
+    .catch(err => {
+      console.log(err)      
+    })
+    this.renderProducts()
+  }
+
   componentDidMount () {
-    this.getBestSellerData()
+    if (this.props.match.params.opt != null){
+      this.getSelectedData()
+    } else {
+      this.getBestSellerData()
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.match.params.opt != this.state.page){
+      this.setState({page: this.props.match.params.opt})
+      if (this.props.match.params.opt != null){
+        this.getSelectedData()
+      } else {
+        this.getBestSellerData()
+      }
+    }
   }
 
   render() {
     return (
       <div>
         <div className="d-flex justify-content-center flex-row align-items-center my-3">
-          <Link to="/" style={{ color: "inherit" }}>
+          <Link to="/home/Phone" style={{ color: "inherit" }}>
             <h6 className="mx-4 font-weight-bold">PHONE</h6>
           </Link>
-          <Link to="/" style={{ color: "inherit" }}>
+          <Link to="/home/Laptop" style={{ color: "inherit" }}>
             <h6 className="mx-4 font-weight-bold">LAPTOP</h6>
           </Link>
-          <Link to="/" style={{ color: "inherit" }}>
+          <Link to="/home/Tab" style={{ color: "inherit" }}>
             <h6 className="mx-4 font-weight-bold">TAB</h6>
           </Link>
-          <Link to="/" style={{ color: "inherit" }}>
+          <Link to="/home/desktop" style={{ color: "inherit" }}>
             <h6 className="mx-4 font-weight-bold">DESKTOP</h6>
           </Link>
         </div>
