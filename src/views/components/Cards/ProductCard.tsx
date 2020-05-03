@@ -3,10 +3,8 @@ import "./ProductCard.css";
 import ButtonUI from "../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faStar } from "@fortawesome/free-regular-svg-icons";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import {connect} from "react-redux"
-import Axios from "axios";
-import { API_URL } from "../../../constants/API";
 
 interface ProductCardData {
   id?: number;
@@ -32,7 +30,7 @@ class ProductCard extends React.Component<ProductCardProps> {
   }
 
   render() {
-    const { id, productName, price, review, image } = this.props.data;
+    const { productName, price, image } = this.props.data;
 
     if (this.state.redirect){
       return <Redirect to={`/product/${this.props.data.id}`} />

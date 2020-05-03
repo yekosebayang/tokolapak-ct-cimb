@@ -15,7 +15,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "./Navbar.css";
 import ButtonUI from "../Button/Button";
-import { logoutHandler } from "../../../redux/actions";
+import { logoutHandler, searchHandler } from "../../../redux/actions";
 
 const CircleBg = ({ children }) => {
   return <div className="circle-bg">{children}</div>;
@@ -26,6 +26,7 @@ class Navbar extends React.Component {
     searchBarIsFocused: false,
     searcBarInput: "",
     dropdownOpen: false,
+    productName: ""
   };
 
   onFocus = () => {
@@ -45,6 +46,16 @@ class Navbar extends React.Component {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   };
 
+  cariData = () => {
+    
+  }
+
+  inputHandler = (e) => {
+    this.setState({cariData: e.target.value});
+    console.log(this.state.cariData)
+    console.log(this.props.navb)
+  }
+
   render() {
     return (
       <div className="d-flex flex-row justify-content-between align-items-center py-4 navbar-container">
@@ -58,13 +69,14 @@ class Navbar extends React.Component {
           className="px-5 d-flex flex-row justify-content-start"
         >
           <input
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
+            onFocus={this.onFocus} onBlur={this.onBlur}
             className={`search-bar ${
               this.state.searchBarIsFocused ? "active" : null
             }`}
             type="text"
             placeholder="Cari produk impianmu disini"
+            onChange={(e) => this.props.cariData(e.target.value)}
+            // value={this.state.searcBarInput}
           />
         </div>
         <div className="d-flex flex-row align-items-center">
@@ -143,11 +155,13 @@ class Navbar extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    srch: state.srch
   };
 };
 
 const mapDispatchToProps = {
   onLogout: logoutHandler,
+  cariData: searchHandler
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

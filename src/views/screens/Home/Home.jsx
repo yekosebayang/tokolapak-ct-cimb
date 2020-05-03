@@ -16,9 +16,11 @@ import iPhoneX from "../../../assets/images/Showcase/iPhone-X.png";
 import iPhone8 from "../../../assets/images/Showcase/iPhone-8.png";
 import iPadPro from "../../../assets/images/Showcase/iPad-Pro.png";
 import ButtonUI from "../../components/Button/Button";
-import CarouselShowcaseItem from "./CarouselShowcaseItem.tsx";
 import Colors from "../../../constants/Colors";
 import { API_URL } from "../../../constants/API";
+import { searchHandler } from "../../../redux/actions";
+import { connect } from "react-redux";
+
 
 const dummy = [
   {
@@ -125,9 +127,12 @@ class Home extends React.Component {
 
   renderProducts = () => {
     return this.state.bestSellerData.map((val) => {
-      return <ProductCard key={`bestseller-${val.id}`} data={val} className="m-2"/>;
+      if(val.productName.toLowerCase().startsWith(this.props.srch.searchData.toLowerCase())){
+        return <ProductCard key={`bestseller-${val.id}`} data={val} className="m-2" />
+      }
     })
   }
+
 
   getSelectedData = () => {
     Axios.get(`${API_URL}products`,
@@ -261,4 +266,14 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    srch: state.srch
+  };
+};
+
+const mapDispatchToProps = {
+  cariData: searchHandler
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

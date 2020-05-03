@@ -3,8 +3,7 @@ import "./ProductDetails.css"
 import ButtonUI from "../../components/Button/Button"
 import Axios from "axios"
 import { API_URL } from "../../../constants/API";
-import { connect, shallowEqual } from "react-redux"
-import { faSwatchbook } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux"
 import swal from "sweetalert";
 
 

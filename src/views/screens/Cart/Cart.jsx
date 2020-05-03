@@ -4,8 +4,7 @@ import "./Cart.css"
 import Axios from "axios"
 import { API_URL } from "../../../constants/API"
 import ButtonUI from "../../components/Button/Button";
-import { getDefaultNormalizer } from "@testing-library/react"
-import {Table, Alert} from "reactstrap"
+import {Alert} from "reactstrap"
 import { Link } from "react-router-dom"
 
 class Cart extends React.Component {

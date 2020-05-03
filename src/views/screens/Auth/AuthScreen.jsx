@@ -68,6 +68,7 @@ class AuthScreen extends React.Component {
         [field]: value,
       },
     });
+    console.log(this.state.loginForm.username)
 
     // console.log(e.target);
 
