@@ -99,19 +99,6 @@ class AuthScreen extends React.Component {
     this.props.onLogin(newUser);
   };
 
-  checkboxHandler = (e, form) => {
-    const { checked } = e.target;
-
-    console.log(checked);
-
-    this.setState({
-      [form]: {
-        ...this.state[form],
-        showPassword: checked,
-      },
-    });
-  };
-
   renderAuthComponent = () => {
     const { activePage } = this.state;
     // alert(activePage)

@@ -10,11 +10,14 @@ import { Link } from "react-router-dom"
 
 class Cart extends React.Component {
     state = {
-        dataKeranjang: []
+        dataKeranjang: [],
+        totalBayar: 0,
+        idBayar: [],
     }
 
     componentDidMount () {
         this.biarGarefresh()
+        // this.hitungTotal()
     }
 
     biarGarefresh = () => {
@@ -26,8 +29,8 @@ class Cart extends React.Component {
         })
         .then((res) =>{
             this.setState({ dataKeranjang: res.data })
-            console.log("data keranjang below")
-            console.log(this.state.dataKeranjang)
+            // console.log("data keranjang below")
+            // console.log(this.state.dataKeranjang)
         })
         .catch((err) =>{
             console.log(err)
@@ -46,21 +49,51 @@ class Cart extends React.Component {
         })
     }
 
+    hitungTotal = () => {
+        let temp = 0
+        let id = []
+        const {dataKeranjang} = this.state
+        for(let i=0; i<dataKeranjang.length; i++){
+            console.log(dataKeranjang[i]["id"])
+            id.push(dataKeranjang[i]["id"])
+            temp += dataKeranjang[i]["product"]["price"]*dataKeranjang[i]["quantity"]
+        }
+        this.setState({idBayar: [...this.state.idBayar, id ]})
+        this.setState({totalBayar: temp})
+
+    }
+
+    btnBayar = () => {//
+        console.log(this.state.idBayar[0])
+        for (let i=0; i<this.state.idBayar[0].length; i++){
+            Axios.delete(`${API_URL}carts/${this.state.idBayar[0][i]}`)
+            .then((res) => {
+                console.log(res.data)
+                this.biarGarefresh()
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        }
+        alert(`Transaksi berhasil`)
+    }
+
     renderCart = () => { 
         return this.state.dataKeranjang.map((val, idx) => {
             return (
                 <tr key={`dataKeranjang-${val.id}`}>
                     <th>{idx+1}</th>
                     <th>{val.product.productName}</th>
-                    <th>{val.product.price}</th>
                     <th>{val.quantity}</th>
+                    <th>{val.product.price}</th>
                     <th>{val.product.category}</th>
-                    <th><img src={val.product.image} width="60px" className="contained"/></th>
+                    <th><img src={val.product.image} width="60px"/></th>
                     <th>
-                        <ButtonUI
-                        onClick={()=>this.hapusKeranjang(val.id,val.product.productName)}
-                        style={{backgroundColor: "red"}}
-                        >X</ButtonUI>
+                            <ButtonUI
+                            className="ml-2 mr-0"
+                            onClick={()=>this.hapusKeranjang(val.id,val.product.productName)}
+                            style={{backgroundColor: "red"}}
+                            >hapus</ButtonUI>
                     </th>
                 </tr> 
             )
@@ -76,7 +109,7 @@ class Cart extends React.Component {
                         <tr>
                         <th>No</th>
                         <th>Produk</th>
-                        <th>qty</th>
+                        <th>amount</th>
                         <th>Harga</th>
                         <th>Kategori</th>
                         <th>Image</th>
@@ -85,12 +118,27 @@ class Cart extends React.Component {
                     </thead>
                     <tbody>
                         {this.renderCart()}
+                        <ButtonUI
+                            className=""
+                            onClick={()=>this.hitungTotal()}>
+                            total
+                        </ButtonUI>
                     </tbody>
                     </table>
+                        {this.state.totalBayar > 0 ? (
+                            <div className="d-flex flex-row container">
+                                <h1>{this.state.totalBayar}</h1>
+                                <ButtonUI
+                                className="ml-2 mr-0"
+                                onClick={()=>this.btnBayar()}
+                                >Bayar</ButtonUI>
+                            </div>
+                        ) : null
+                        }
                 </div>
-              )
+                
+            )
         } else {
-            console.log(this.state.dataKeranjang.length)
             return(
                 <Alert>
                     keranjang anda kosong, <Link to="/">Yuk!! belanja</Link>
