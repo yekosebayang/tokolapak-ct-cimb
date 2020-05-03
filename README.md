@@ -1,3 +1,12 @@
+IDE PROJECT.
+
+berikut ide project saya 👩🏽‍🏫 👨🏽‍🏫 
+STUDENT ACCESS,
+    murid >  mengecek nilai, dan jadwal pelajaran, serta presensi.
+    pengajar> commit nilai, dan jadwal mata pelajaran, serta presensi.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
