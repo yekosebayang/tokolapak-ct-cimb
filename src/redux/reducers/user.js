@@ -29,7 +29,7 @@ export default (state = init_state, action) => {
     case "ON_REGISTER_FAIL":
       return { ...state, errMsg: action.payload, cookieChecked: true };
     case ON_LOGOUT_SUCCESS:
-      return { ...init_state, cookieChecked: true };
+      return { ...init_state, cookieChecked: false };
     case "COOKIE_CHECK":
       return { ...state, cookieChecked: true };
     default:

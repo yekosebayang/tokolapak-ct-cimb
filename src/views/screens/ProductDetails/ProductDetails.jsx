@@ -61,53 +61,56 @@ class ProductDetails extends React.Component {
         // POST method ke /cart
         // Isinya: userId, productId, quantity
         // console.log(this.props.user.id);
-        Axios.get(`${API_URL}carts` ,{
-            params: {
-                userId: this.props.user.id,
-                productId: this.state.productData.id,
-            }
-        })
-        .then((res) => {
-            console.log(res.data)
-            if (res.data.length > 0){ //tambah qty
-                let cartId = res.data[0].id
-                let temp = (res.data[0].quantity) + 1
-                Axios.put(`${API_URL}carts/${cartId}`,{ //tambah qty
-                            userId: this.props.user.id,
-                            productId: this.state.productData.id,
-                            quantity: temp,
-                })
-                .then((res) => { //tambah qty
-                    let temp2 = this.props.cart.qty + 1
-                    this.props.addTotalCart(this.props.user.id,temp2)
-                    swal("Add to cart", `${name} berhasil ditambah kekeranjang` , "success");
-                    this.renderProdukDetail()   
-                })
-                .catch((err) => {//tambah qty
-                    swal("Add to cart" , `${name} failed added to your cart 😋 ${err}` , "error");
-                })
-            } else { //data masih 0
-                // swal("Add to cart" , `data belum ada, beli dulu` , "error");
-                Axios.post(`${API_URL}carts`,{
+        if (this.props.user.cookieChecked){
+            Axios.get(`${API_URL}carts` ,{
+                params: {
                     userId: this.props.user.id,
                     productId: this.state.productData.id,
-                    quantity: 1,
-                })
-                .then((res) => {
-                    this.setState({ productData: res.data})
-                    this.props.addTotalCart(this.props.user.id,1)
-                    swal("Add to cart", `${name} berhasil ditambah kekeranjang` , "success");
-                    this.renderProdukDetail()   
-                })
-                .catch((err) =>{
-                swal("Add to cart" , `${name} failed added to your cart 😋` , "error");
+                }
+            })
+            .then((res) => {
+                console.log(res.data)
+                if (res.data.length > 0){ //tambah qty
+                    let cartId = res.data[0].id
+                    let temp = (res.data[0].quantity) + 1
+                    Axios.put(`${API_URL}carts/${cartId}`,{ //tambah qty
+                                userId: this.props.user.id,
+                                productId: this.state.productData.id,
+                                quantity: temp,
+                    })
+                    .then((res) => { //tambah qty
+                        let temp2 = this.props.cart.qty + 1
+                        this.props.addTotalCart(this.props.user.id,temp2)
+                        swal("Add to cart", `${name} berhasil ditambah kekeranjang` , "success");
+                        this.renderProdukDetail()   
+                    })
+                    .catch((err) => {//tambah qty
+                        swal("Add to cart" , `${name} failed added to your cart 😋 ${err}` , "error");
+                    })
+                } else { //data masih 0
+                    Axios.post(`${API_URL}carts`,{
+                        userId: this.props.user.id,
+                        productId: this.state.productData.id,
+                        quantity: 1,
+                    })
+                    .then((res) => {
+                        this.setState({ productData: res.data})
+                        this.props.addTotalCart(this.props.user.id,1)
+                        swal("Add to cart", `${name} berhasil ditambah kekeranjang` , "success");
+                        this.renderProdukDetail()   
+                    })
+                    .catch((err) =>{
+                    swal("Add to cart" , `${name} failed added to your cart 😋` , "error");
+                    console.log(err)
+                    })
+                }
+            })
+            .catch((err) =>{
                 console.log(err)
-                })
-            }
-        })
-        .catch((err) =>{
-            console.log(err)
-        })
+            })
+        } else {
+            swal("Gagal Autentikasi","Anda belum login/daftar","error" )
+        }
     }
 
     render() {
