@@ -127,7 +127,7 @@ class Home extends React.Component {
 
   renderProducts = () => {
     return this.state.bestSellerData.map((val) => {
-      if(val.productName.toLowerCase().startsWith(this.props.srch.searchData.toLowerCase())){
+      if(val.productName.toLowerCase().includes(this.props.srch.searchData.toLowerCase())){ // try include rather than startswith
         return <ProductCard key={`bestseller-${val.id}`} data={val} className="m-2" />
       }
     })
@@ -166,6 +166,7 @@ class Home extends React.Component {
         this.getSelectedData()
       } else {
         this.getBestSellerData()
+        this.props.cariData('')
       }
     }
   }
@@ -174,6 +175,9 @@ class Home extends React.Component {
     return (
       <div>
         <div className="d-flex justify-content-center flex-row align-items-center my-3">
+          <Link to="/" style={{ color: "inherit" }}>
+            <h6 className="mx-4 font-weight-bold">ALL</h6>
+          </Link>
           <Link to="/home/Phone" style={{ color: "inherit" }}>
             <h6 className="mx-4 font-weight-bold">PHONE</h6>
           </Link>
