@@ -91,6 +91,7 @@ class Navbar extends React.Component {
                   <p className="small ml-3 mr-4">{this.props.user.username}</p>
                 </DropdownToggle>
                 <DropdownMenu className="mt-2">
+                  {this.props.user.role === "admin" ? (
                   <DropdownItem>
                     <Link
                       style={{ color: "inherit", textDecoration: "none" }}
@@ -99,6 +100,8 @@ class Navbar extends React.Component {
                       Dashboard
                     </Link>
                   </DropdownItem>
+                  ):(null)
+                  }
                   <DropdownItem>Members</DropdownItem>
                   <DropdownItem>Payments</DropdownItem>
                 </DropdownMenu>
@@ -124,7 +127,9 @@ class Navbar extends React.Component {
                 className="ml-3"
                 type="textual"
               >
-                Logout
+              <Link
+                style ={{ textDecoration: "none", color: "inherit"}}
+                to="/auth/login">Logout</Link>
               </ButtonUI>
             </>
           ):(
