@@ -5,6 +5,7 @@ import Axios from "axios"
 import { API_URL } from "../../../constants/API";
 import { connect } from "react-redux"
 import swal from "sweetalert";
+import { editTotalCartHandler } from "../../../redux/actions";
 
 
 class ProductDetails extends React.Component {
@@ -71,16 +72,16 @@ class ProductDetails extends React.Component {
             if (res.data.length > 0){ //tambah qty
                 let cartId = res.data[0].id
                 let temp = (res.data[0].quantity) + 1
-                // console.log(`kuantiti= ${res.data[0].quantity}`)
-                // console.log(`id= ${res.data[0].id}`)
-                // console.log(`kuantiti nambah= ${temp}`)
                 Axios.put(`${API_URL}carts/${cartId}`,{ //tambah qty
                             userId: this.props.user.id,
                             productId: this.state.productData.id,
                             quantity: temp,
                 })
                 .then((res) => { //tambah qty
+                    let temp2 = this.props.cart.qty + 1
+                    this.props.addTotalCart(this.props.user.id,temp2)
                     swal("Add to cart", `${name} berhasil ditambah kekeranjang` , "success");
+                    this.renderProdukDetail()   
                 })
                 .catch((err) => {//tambah qty
                     swal("Add to cart" , `${name} failed added to your cart 😋 ${err}` , "error");
@@ -93,16 +94,16 @@ class ProductDetails extends React.Component {
                     quantity: 1,
                 })
                 .then((res) => {
-                    console.log(res)
                     this.setState({ productData: res.data})
-                    swal("Add to cart", `${name} berhasil ditambah kekeranjang` , "success");    
+                    this.props.addTotalCart(this.props.user.id,1)
+                    swal("Add to cart", `${name} berhasil ditambah kekeranjang` , "success");
+                    this.renderProdukDetail()   
                 })
                 .catch((err) =>{
                 swal("Add to cart" , `${name} failed added to your cart 😋` , "error");
                 console.log(err)
                 })
             }
-            this.renderProdukDetail()   
         })
         .catch((err) =>{
             console.log(err)
@@ -152,7 +153,12 @@ class ProductDetails extends React.Component {
 const mapStatetoProps = (state) => {
     return {
       user: state.user,
+      cart: state.cart
     }
-  }
-  
-  export default connect(mapStatetoProps)(ProductDetails)
+}
+
+const mapDispatchToProps = {
+    addTotalCart: editTotalCartHandler
+};
+    
+export default connect(mapStatetoProps, mapDispatchToProps)(ProductDetails)

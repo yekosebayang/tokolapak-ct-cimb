@@ -6,12 +6,15 @@ import { API_URL } from "../../../constants/API"
 import ButtonUI from "../../components/Button/Button";
 import {Alert} from "reactstrap"
 import { Link } from "react-router-dom"
+import { editTotalCartHandler } from "../../../redux/actions";
+import swal from "sweetalert";
 
 class Cart extends React.Component {
     state = {
         dataKeranjang: [],
         totalBayar: 0,
         idBayar: [],
+        checkOutItems: []
     }
 
     componentDidMount () {
@@ -36,13 +39,14 @@ class Cart extends React.Component {
         })
     }
 
-    hapusKeranjang = (id,name) => {
+    hapusKeranjang = (id,name,qty) => {
         Axios.delete(`${API_URL}carts/${id}`)
         .then((res) => {
+            let temp = this.props.cart.qty - qty
             alert(`${name}berhasil dihapus`)
-            console.log(res.data)
+            this.props.reduceTotalCart(this.props.user.id,temp)
             this.biarGarefresh()
-        })
+        })  
         .catch((err) => {
             console.log(err)
         })
@@ -59,7 +63,6 @@ class Cart extends React.Component {
         }
         this.setState({idBayar: [...this.state.idBayar, id ]})
         this.setState({totalBayar: temp})
-
     }
 
     btnBayar = () => {//
@@ -67,14 +70,28 @@ class Cart extends React.Component {
         for (let i=0; i<this.state.idBayar[0].length; i++){
             Axios.delete(`${API_URL}carts/${this.state.idBayar[0][i]}`)
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 this.biarGarefresh()
             })
             .catch((err) => {
                 console.log(err)
             })
         }
-        alert(`Transaksi berhasil`)
+        this.props.reduceTotalCart(this.props.user.id,0)
+        swal("Transaksi berhasil", `Terimakasih` , "success");
+    }
+
+    checkBoxHandler = (e,idx) => {
+        const {checked} = e.target
+        if (checked) {
+            this.setState({ checkOutItems: [...this.state.checkOutItems, idx]}) //isi index yang dioper ke dalam state array baru
+        } else {
+            this.setState({
+                checkOutItems: [
+                    this.state.checkOutItems.filter((val) => val !==idx) //delete index 
+                ]
+            })
+        }
     }
 
     renderCart = () => { 
@@ -90,7 +107,7 @@ class Cart extends React.Component {
                     <th>
                             <ButtonUI
                             className="ml-2 mr-0"
-                            onClick={()=>this.hapusKeranjang(val.id,val.product.productName)}
+                            onClick={()=>this.hapusKeranjang(val.id,val.product.productName,val.quantity)}
                             style={{backgroundColor: "red"}}
                             >hapus</ButtonUI>
                     </th>
@@ -151,7 +168,12 @@ class Cart extends React.Component {
 const mapStatetoProps = (state) => {
     return {
       user: state.user,
+      cart: state.cart
     }
   }
+
+const mapDispatchToProps = {
+  reduceTotalCart: editTotalCartHandler
+};
   
-  export default connect(mapStatetoProps)(Cart)
+  export default connect(mapStatetoProps, mapDispatchToProps)(Cart)

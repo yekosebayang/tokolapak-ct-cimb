@@ -15,7 +15,9 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "./Navbar.css";
 import ButtonUI from "../Button/Button";
-import { logoutHandler, searchHandler } from "../../../redux/actions";
+import { logoutHandler, searchHandler, totalCartHandler } from "../../../redux/actions";
+import Axios from "axios";
+import { API_URL } from "../../../constants/API";
 
 const CircleBg = ({ children }) => {
   return <div className="circle-bg">{children}</div>;
@@ -26,7 +28,8 @@ class Navbar extends React.Component {
     searchBarIsFocused: false,
     searcBarInput: "",
     dropdownOpen: false,
-    productName: ""
+    productName: "",
+    totalCart: 0
   };
 
   onFocus = () => {
@@ -46,8 +49,27 @@ class Navbar extends React.Component {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   };
 
-  cariData = () => {
-    
+  // getCartNumber = () => {
+  //   Axios.get(`${API_URL}carts`,{
+  //     params: {
+  //       userId : this.props.user.id
+  //     }
+  //   })
+  //   .then((res) => {
+  //     let temp = 0
+  //     for (let i=0; i<res.data.length; i++){
+  //       temp += res.data[i]["quantity"]
+  //     }
+  //     this.setState({totalCart: temp})      
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
+  // }
+
+  componentDidMount(){
+    let id = this.props.user.id
+    this.props.totalCart(id)
   }
 
   inputHandler = (e) => {
@@ -90,21 +112,26 @@ class Navbar extends React.Component {
                   <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
                   <p className="small ml-3 mr-4">{this.props.user.username}</p>
                 </DropdownToggle>
-                <DropdownMenu className="mt-2">
                   {this.props.user.role === "admin" ? (
+                  <DropdownMenu className="mt-2">
                   <DropdownItem>
                     <Link
                       style={{ color: "inherit", textDecoration: "none" }}
-                      to="/admin/dashboard"
-                    >
+                      to="/admin/dashboard" >
                       Dashboard
                     </Link>
                   </DropdownItem>
-                  ):(null)
-                  }
                   <DropdownItem>Members</DropdownItem>
                   <DropdownItem>Payments</DropdownItem>
-                </DropdownMenu>
+                  </DropdownMenu>
+                  ):(
+                    <DropdownMenu className="mt-2">
+                      <DropdownItem>Whislist</DropdownItem>
+                      <DropdownItem>History</DropdownItem>
+                    </DropdownMenu>
+
+                  )
+                }
               </Dropdown>
               <Link
                 className="d-flex flex-row"
@@ -118,7 +145,7 @@ class Navbar extends React.Component {
                 />
                 <CircleBg>
                   <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
-                    4
+                    {this.props.cart.qty}
                   </small>
                 </CircleBg>
               </Link>
@@ -160,13 +187,14 @@ class Navbar extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    srch: state.srch
+    cart: state.cart
   };
 };
 
 const mapDispatchToProps = {
   onLogout: logoutHandler,
-  cariData: searchHandler
+  cariData: searchHandler,
+  totalCart: totalCartHandler
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
