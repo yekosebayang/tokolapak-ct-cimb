@@ -19,7 +19,11 @@ import { API_URL } from '../../constants/API'
                     type: "GET_CART_DATA",
                     payload: temp
                 })
-            }
+            } else 
+            dispatch({
+                type: "GET_CART_DATA",
+                payload: 0
+            })
         })
         .catch(err => {
             console.log(err)

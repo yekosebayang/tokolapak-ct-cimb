@@ -15,6 +15,10 @@ import AdminDashboard from "./views/screens/admin/AdminDashboard";
 import { userKeepLogin, cookieChecker } from "./redux/actions";
 import Cart from "./views/screens/Cart/Cart";
 import Wish from "./views/screens/Wish/wish";
+import History from "./views/screens/history/history";
+import AdminPay from "./views/screens/admin/MPay/AdminPay";
+import AdminReportUser from "./views/screens/admin/AdminReportUser/AdminReportUser";
+import AdminReportItem from "./views/screens/admin/AdminReportItem/AdminReportItem";
 
 const cookieObj = new Cookie();
 
@@ -30,7 +34,15 @@ class App extends React.Component {
 
   renderAdminRoutes = () => {
     if (this.props.user.role === "admin") {
-      return <Route exact path="/admin/dashboard" component={AdminDashboard} />;
+      return(
+        <>
+        <Route exact path="/admin/dashboard" component={AdminDashboard} />;
+        <Route exact path="/admin/payment" component={AdminPay} />;
+        <Route exact path="/admin/Report/user" component={AdminReportUser} />;
+        <Route exact path="/admin/Report/item" component={AdminReportItem} />;
+        </>
+        ) 
+        
     } else{
       return <h1 className="text-center">Page Not Found</h1>
     }
@@ -49,7 +61,8 @@ class App extends React.Component {
             <Route exact path="/auth/:pg" component={AuthScreen} />
             <Route exact path="/product/:id" component={ProductDetails} />
             <Route exact path="/cart" component={Cart} />
-            <Route exact path="/Wish" component={Wish} />
+            <Route exact path="/wish" component={Wish} />
+            <Route exact path="/history" component={History} />
             {this.renderAdminRoutes()}
           </Switch>
           <div style={{ height: "120px" }} />
@@ -58,15 +71,6 @@ class App extends React.Component {
     } else {
       return (
         <>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/home/:opt" component={Home} />
-            <Route exact path="/auth/:pg" component={AuthScreen} />
-            <Route exact path="/product/:id" component={ProductDetails} />
-            <Route exact path="/cart" component={Cart} />
-            {this.renderAdminRoutes()}
-          </Switch>
           <div style={{ height: "120px" }} />
         </>
       )

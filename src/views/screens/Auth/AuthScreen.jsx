@@ -96,8 +96,8 @@ class AuthScreen extends React.Component {
       username,
       password,
     };
-
     this.props.onLogin(newUser);
+    console.log(this.props.user.username)
   };
 
   renderAuthComponent = () => {

@@ -7,7 +7,6 @@ import ButtonUI from "../../components/Button/Button";
 import {Alert} from "reactstrap"
 import { Link } from "react-router-dom"
 import swal from "sweetalert";
-import { callbackify } from "util"
 import { editTotalCartHandler} from "../../../redux/actions";
 
 class Wish extends React.Component {

@@ -16,8 +16,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import "./Navbar.css";
 import ButtonUI from "../Button/Button";
 import { logoutHandler, searchHandler, totalCartHandler } from "../../../redux/actions";
-import Axios from "axios";
-import { API_URL } from "../../../constants/API";
+
 
 const CircleBg = ({ children }) => {
   return <div className="circle-bg">{children}</div>;
@@ -110,8 +109,27 @@ class Navbar extends React.Component {
                       Dashboard
                     </Link>
                   </DropdownItem>
-                  <DropdownItem>Members</DropdownItem>
-                  <DropdownItem>Payments</DropdownItem>
+                  <DropdownItem>
+                  <Link
+                      style={{ color: "inherit", textDecoration: "none" }}
+                      to="/admin/report/user" >
+                      Report User
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                  <Link
+                      style={{ color: "inherit", textDecoration: "none" }}
+                      to="/admin/report/item" >
+                      Report Item
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link
+                      style={{ color: "inherit", textDecoration: "none" }}
+                      to="/admin/Payment" >
+                      Payment
+                    </Link>
+                  </DropdownItem>
                   </DropdownMenu>
                   ):(
                     <DropdownMenu className="mt-2">
@@ -122,7 +140,13 @@ class Navbar extends React.Component {
                         Whislists
                         </Link>
                       </DropdownItem>
-                      <DropdownItem>History</DropdownItem>
+                      <DropdownItem>
+                        <Link
+                          style={{ color: "inherit", textDecoration: "none" }}
+                          to="/history" >
+                          History
+                        </Link>
+                      </DropdownItem>
                     </DropdownMenu>
                   )
                 }

@@ -58,7 +58,6 @@ class Cart extends React.Component {
         this.setState({bayarActive: false})
     };
 
-
     hitungTotal = () => {
         let temp = 0
         let id = []
@@ -85,20 +84,36 @@ class Cart extends React.Component {
             })
         }
         this.props.reduceTotalCart(this.props.user.id,0)
-        swal("Transaksi berhasil", `Terimakasih` , "success");
+        this.addToTransactionHandler()
+        swal("Transaksi diproses", `Terimakasih` , "success");
     }
 
-    checkBoxHandler = (e,idx) => {
-        const {checked} = e.target
-        if (checked) {
-            this.setState({ checkOutItems: [...this.state.checkOutItems, idx]}) //isi index yang dioper ke dalam state array baru
-        } else {
-            this.setState({
-                checkOutItems: [
-                    this.state.checkOutItems.filter((val) => val !==idx) //delete index 
-                ]
-            })
-        }
+    // checkBoxHandler = (e,idx) => {
+    //     const {checked} = e.target
+    //     if (checked) {
+    //         this.setState({ checkOutItems: [...this.state.checkOutItems, idx]}) //isi index yang dioper ke dalam state array baru
+    //     } else {
+    //         this.setState({
+    //             checkOutItems: [
+    //                 this.state.checkOutItems.filter((val) => val !==idx) //delete index 
+    //             ]
+    //         })
+    //     }
+    // }
+
+    addToTransactionHandler = (total) => {
+        Axios.post(`${API_URL}transactions`, {
+            userId: this.props.user.id,
+            totalPrice: this.state.totalBayar,
+            status: "pending",
+            transactionDetail: this.state.dataKeranjang
+        })
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
     renderCart = () => { 
@@ -156,6 +171,7 @@ class Cart extends React.Component {
                                 <option value={50000}>Same Day</option>
                                 <option value={100000}>Instant</option>
                             </select>
+                            <p>Delivery fee: <br/> {this.state.delivery}</p>
                             </th>
                             <th>
                                 <ButtonUI
