@@ -14,12 +14,13 @@ import ProductDetails from "./views/screens/ProductDetails/ProductDetails";
 import AdminDashboard from "./views/screens/admin/AdminDashboard";
 import { userKeepLogin, cookieChecker } from "./redux/actions";
 import Cart from "./views/screens/Cart/Cart";
+import Wish from "./views/screens/Wish/wish";
 
 const cookieObj = new Cookie();
 
 class App extends React.Component {
   componentDidMount() {
-    let cookieResult = cookieObj.get("authData");
+    let cookieResult = cookieObj.get("authData" , {path:"/"});
     if (cookieResult) {
       this.props.keepLogin(cookieResult);
     } else {
@@ -28,21 +29,33 @@ class App extends React.Component {
 }
 
   renderAdminRoutes = () => {
-    if (this.props.user.role == "admin"){
-      return(
-        <Route exact path="/admin/dashboard" component={AdminDashboard} />
-      )
-    }
-  }
-
-  renderAdminRoutes = () => {
     if (this.props.user.role === "admin") {
       return <Route exact path="/admin/dashboard" component={AdminDashboard} />;
+    } else{
+      return <h1 className="text-center">Page Not Found</h1>
     }
   };
 
   render() {
+    // console.log("app user check")
+    // console.log(this.props.user.id)
     if (this.props.user.cookieChecked) {
+      return (
+        <>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/home/:opt" component={Home} />
+            <Route exact path="/auth/:pg" component={AuthScreen} />
+            <Route exact path="/product/:id" component={ProductDetails} />
+            <Route exact path="/cart" component={Cart} />
+            <Route exact path="/Wish" component={Wish} />
+            {this.renderAdminRoutes()}
+          </Switch>
+          <div style={{ height: "120px" }} />
+        </>
+      );
+    } else {
       return (
         <>
           <Navbar />
@@ -56,9 +69,7 @@ class App extends React.Component {
           </Switch>
           <div style={{ height: "120px" }} />
         </>
-      );
-    } else {
-      return <div>Loading . . .</div>
+      )
     }
   }
 }
@@ -84,4 +95,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
  * 4. Di cart, buat button checkout, serta dengan proses checkout ✔️
  * 5. Ketika confirm checkout, lakukan POST request ke db.json ke transaction ✔️
  *    -> lalu cart harus kosong ✔️
+ */
+
+/**
+ * * TRANSACTIONS
+ * userId
+ * total belanja
+ * status -> "pending"
+ * tanggal belanja
+ * tanggal selesai -> ""
+ * 
+ * TRANSACTION_DETAILS
+ * transactionId
+ * productId
+ * price
+ * quantity
+ * totalPrice (price * quantity) 
  */

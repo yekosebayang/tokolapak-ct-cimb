@@ -2,7 +2,7 @@
 import Axios from 'axios'
 import { API_URL } from '../../constants/API'
 
-  export const totalCartHandler = (dataCart) => {
+  export const totalCartHandler = (dataCart) => { //ngitung semua quantity barang di cart
     return (dispatch) => { // anggap dispatch = return
         Axios.get(`${API_URL}carts` ,{
             params: {
@@ -27,7 +27,7 @@ import { API_URL } from '../../constants/API'
     }
 }
 
-export const editTotalCartHandler = (id,quantity) => {
+export const editTotalCartHandler = (id,quantity) => {//nambah cart
     return (dispatch) => { // anggap dispatch = return
         Axios.get(`${API_URL}carts` ,{
             params: {

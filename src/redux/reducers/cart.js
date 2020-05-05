@@ -5,7 +5,7 @@ const init_state = {
 export default (state = init_state, action) => {
   switch (action.type) {
     case "GET_CART_DATA":
-      return {
+      return { 
         ...state,
         qty: action.payload
       };

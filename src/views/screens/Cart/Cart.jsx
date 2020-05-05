@@ -14,7 +14,9 @@ class Cart extends React.Component {
         dataKeranjang: [],
         totalBayar: 0,
         idBayar: [],
-        checkOutItems: []
+        checkOutItems: [],
+        delivery: 0,
+        bayarActive: false
     }
 
     componentDidMount () {
@@ -31,8 +33,6 @@ class Cart extends React.Component {
         })
         .then((res) =>{
             this.setState({ dataKeranjang: res.data })
-            // console.log("data keranjang below")
-            // console.log(this.state.dataKeranjang)
         })
         .catch((err) =>{
             console.log(err)
@@ -52,17 +52,25 @@ class Cart extends React.Component {
         })
     }
 
+    inputHandler = (e) => {
+        let { value } = e.target;
+        this.setState({delivery: parseInt(value)})
+        this.setState({bayarActive: false})
+    };
+
+
     hitungTotal = () => {
         let temp = 0
         let id = []
         const {dataKeranjang} = this.state
         for(let i=0; i<dataKeranjang.length; i++){
-            console.log(dataKeranjang[i]["id"])
             id.push(dataKeranjang[i]["id"])
-            temp += dataKeranjang[i]["product"]["price"]*dataKeranjang[i]["quantity"]
+            temp += parseInt(dataKeranjang[i]["product"]["price"]*dataKeranjang[i]["quantity"])
         }
+        temp += this.state.delivery
         this.setState({idBayar: [...this.state.idBayar, id ]})
         this.setState({totalBayar: temp})
+        this.setState({bayarActive: true})
     }
 
     btnBayar = () => {//
@@ -70,7 +78,6 @@ class Cart extends React.Component {
         for (let i=0; i<this.state.idBayar[0].length; i++){
             Axios.delete(`${API_URL}carts/${this.state.idBayar[0][i]}`)
             .then((res) => {
-                // console.log(res.data)
                 this.biarGarefresh()
             })
             .catch((err) => {
@@ -120,6 +127,7 @@ class Cart extends React.Component {
         if (this.state.dataKeranjang.length > 0){
             return (
                 <div className="container">
+                    <h3>Keranjang</h3>
                     <table className="table table-hover">
                     <thead>
                         <tr>
@@ -134,14 +142,32 @@ class Cart extends React.Component {
                     </thead>
                     <tbody>
                         {this.renderCart()}
-                        <ButtonUI
-                            className=""
-                            onClick={()=>this.hitungTotal()}>
-                            total
-                        </ButtonUI>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                            <select
+                                value={this.state.delivery}
+                                className="custom-text-input h-100 pl-3"
+                                onChange={(e) => this.inputHandler(e)}
+                                >
+                                <option value={0}>Economy</option>
+                                <option value={20000}>Express</option>
+                                <option value={50000}>Same Day</option>
+                                <option value={100000}>Instant</option>
+                            </select>
+                            </th>
+                            <th>
+                                <ButtonUI
+                                    className=""
+                                    onClick={()=>this.hitungTotal()}>
+                                    total
+                                </ButtonUI>
+                            </th>
+                        </tr>
+                    </tfoot>
                     </table>
-                        {this.state.totalBayar > 0 ? (
+                        {this.state.bayarActive  ? (
                             <div className="d-flex flex-row container">
                                 <h1>{this.state.totalBayar}</h1>
                                 <ButtonUI
