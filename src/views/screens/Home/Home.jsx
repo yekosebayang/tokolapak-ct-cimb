@@ -57,44 +57,44 @@ class Home extends React.Component {
     page: ""
   };
 
-  renderCarouselItems = () => {
-    return dummy.map(({ image, productName, desc, id }) => {
-      return (
-        <CarouselItem
-          onExiting={() => this.setState({ animating: true })}
-          onExited={() => this.setState({ animating: false })}
-          key={id.toString()}
-        >
-          <div className="carousel-item-home">
-            <div className="container position-relative">
-              <div className="row" style={{ paddingTop: "80px" }}>
-                <div className="col-6 text-white position-relative">
-                  <h2>{productName}</h2>
-                  <p className="mt-4">{desc}</p>
-                  <ButtonUI
-                    type="outlined"
-                    style={{
-                      backgroundColor: "#CCEAD7",
-                      borderColor: "#CCEAD7",
-                      borderRadius: "16px",
-                      fontWeight: "bolder",
-                      position: "absolute",
-                      bottom: 420,
-                    }}
-                  >
-                    BUY NOW
-                  </ButtonUI>
-                </div>
-                <div className="col-6 d-flex flex-row justify-content-center">
-                  <img src={image} alt="" style={{ height: "750px" }} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </CarouselItem>
-      );
-    });
-  };
+  // renderCarouselItems = () => {
+  //   return dummy.map(({ image, productName, desc, id }) => {
+  //     return (
+  //       <CarouselItem
+  //         onExiting={() => this.setState({ animating: true })}
+  //         onExited={() => this.setState({ animating: false })}
+  //         key={id.toString()}
+  //       >
+  //         <div className="carousel-item-home">
+  //           <div className="container position-relative">
+  //             <div className="row" style={{ paddingTop: "80px" }}>
+  //               <div className="col-6 text-white position-relative">
+  //                 <h2>{productName}</h2>
+  //                 <p className="mt-4">{desc}</p>
+  //                 <ButtonUI
+  //                   type="outlined"
+  //                   style={{
+  //                     backgroundColor: "#CCEAD7",
+  //                     borderColor: "#CCEAD7",
+  //                     borderRadius: "16px",
+  //                     fontWeight: "bolder",
+  //                     position: "absolute",
+  //                     bottom: 420,
+  //                   }}
+  //                 >
+  //                   BUY NOW
+  //                 </ButtonUI>
+  //               </div>
+  //               <div className="col-6 d-flex flex-row justify-content-center">
+  //                 <img src={image} alt="" style={{ height: "750px" }} />
+  //               </div>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </CarouselItem>
+  //     );
+  //   });
+  // };
 
   nextHandler = () => {
     if (this.state.animating) return;
@@ -191,7 +191,7 @@ class Home extends React.Component {
             <h6 className="mx-4 font-weight-bold">DESKTOP</h6>
           </Link>
         </div>
-        <Carousel
+        {/* <Carousel
           className="carousel-item-home-bg "
           next={this.nextHandler}
           previous={this.prevHandler}
@@ -208,7 +208,7 @@ class Home extends React.Component {
             direction="next"
             onClickHandler={this.nextHandler}
           />
-        </Carousel>
+        </Carousel> */}
         <div className="container">
           {/* BEST SELLER SECTION */}
           <h2 className="text-center font-weight-bolder mt-5">BEST SELLER</h2>
@@ -217,7 +217,7 @@ class Home extends React.Component {
           </div>
         </div>
         {/* ABOUT SECTION */}
-        <div
+        {/* <div
           className="py-5"
           style={{ marginTop: "128px", backgroundColor: Colors.lightestGray }}
         >
@@ -264,7 +264,7 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

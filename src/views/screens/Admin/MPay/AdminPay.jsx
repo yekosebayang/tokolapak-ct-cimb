@@ -10,92 +10,128 @@ import swal from "sweetalert";
 
 class AdminPay extends React.Component {
   state = {
-    transactionList: [],
+    transactionDetail: [],
     terimaForm: [],
-    modalOpen: false,
+    activeProducts: [],
   };
 
-  getTransactionList = () => {
-    Axios.get(`${API_URL}transactions`, {
-      params: {
-          _expand: "user"}
-        })
+
+terimaBtnHandler = (id,userId,totalPrice,deliv) => {
+    Axios.put(`${API_URL}transactions/${id}`,{
+      userId,
+      totalPrice,
+      deliv,
+      status: "pending",
+      })
       .then((res) => {
-        this.setState({ transactionList: res.data });
+        // swal("Success!", `transaction has been approved`, "success");
       })
       .catch((err) => {
+        // swal("Error!", "Your item could not be edited", "error");  
         console.log(err);
       });
-  };
+}
 
-  deleteBtnHandler = (id,name) => {
-    Axios.delete(`${API_URL}transactions/${id}`)
+getTransactionDetail = () => {
+  Axios.get(`${API_URL}transactionsd`, {
+    params: {
+      _expand: "transaction",
+    }
+      })
     .then((res) => {
-        swal("Success!", `transaksi ${name} been deleted from the list`, "success")
-        console.log(res.data)
-        this.getTransactionList();
+      this.setState({ transactionDetail: res.data });
+      // console.log(this.state.transactionDetail[0]['detail']['productId'])
+      // console.log(this.state.transactionDetail[0]['transaction']['deliv'])
     })
     .catch((err) => {
-        console.log(err)
-    })
-}
-  terimaBtnHandler = (id,nama,userId,totalPrice) => {
-    console.log(userId)
-    console.log(totalPrice)
-    Axios.put(`${API_URL}transactions/${id}`,{
-        userId,
-        totalPrice,
-        status: "terima",
-        id: id
-      }
-    )
-      .then((res) => {
-        swal("Success!", `${nama} transaction has been approved`, "success");
-        this.getTransactionList()
-      })
-      .catch((err) => {
-        swal("Error!", "Your item could not be edited", "error");
-        console.log(err);
-      });
-}
+      alert("gagalTransaksiList");
+    });
+};
 
 componentDidMount() {
-  this.getTransactionList();
+  this.getTransactionDetail();
 }
 
-  renderTransactionList = () => {
-    return this.state.transactionList.map((val, idx) => {
-      const {totalPrice, status, id, user} = val;
+renderTransactionList = () => {
+    return this.state.transactionDetail.map((val, idx) => {
+      const { id, detail, transaction } = val;
       return (
         <>
-            <tr key={`dataTransaction-${val.id}`}>
-                    <th>{idx+1}</th>
-                    <th>{user.username}</th>
-                    <th>{user.id}</th>
-                    <th>{status}</th>
-                    <th>{totalPrice}</th>
-                    <th>
-                            <ButtonUI
-                            className="ml-2 mr-0"
-                            onClick={()=>this.terimaBtnHandler(id,user.username,user.id,totalPrice)}
-                            >terima</ButtonUI>
-                            <ButtonUI
-                            className="ml-2 mr-0"
-                            onClick={()=>this.deleteBtnHandler(id,user.username)}
-                            style={{backgroundColor: "red"}}
-                            >hapus</ButtonUI>
-                    </th>
-                </tr> 
+          <tr
+            onClick={() => {
+              if (this.state.activeProducts.includes(idx)) {
+                this.setState({
+                  activeProducts: [
+                    ...this.state.activeProducts.filter((item) => item !== idx),
+                  ],
+                });
+              } else {
+                this.setState({
+                  activeProducts: [...this.state.activeProducts, idx],
+                });
+              }
+            }}
+          >
+            <td> {id} </td>
+            <td> {detail.userName}</td>
+            <td>
+              {" "}
+              {new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              }).format(transaction.deliv)}{" "}
+            </td>
+            <td>
+              {" "}
+              {new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              }).format(transaction.totalPrice)}{" "}
+            </td>
+          </tr>
+          <tr key={`Datatransaksi-${transaction.id}`}
+            className={`collapse-item ${
+              this.state.activeProducts.includes(idx) ? "active" : null
+            }`}
+          >
+            <td className="" colSpan={3}>
+              <div className="d-flex justify-content-around align-items-center">
+                <div className="d-flex">
+                  <img src={detail.productImage} alt="" />
+                  <div className="d-flex flex-column ml-4 justify-content-center">
+                    <h5>{detail.productId}</h5>
+                    <h6>
+                      Price:
+                      <span style={{ fontWeight: "normal" }}>
+                        {" "}
+                        {new Intl.NumberFormat("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }).format(detail.productPrice)}
+                      </span>
+                    </h6>
+                    <h6>
+                      Status:
+                      <span style={{ fontWeight: "normal" }}> {transaction.status}</span>
+                    </h6>
+                  </div>
+                </div>
+                <div className="d-flex flex-column align-items-center">
+                  <ButtonUI
+                    onClick={this.terimaBtnHandler(id,detail.userId,transaction.totalPrice,transaction.deliv)}
+                    type="contained"
+                  >terima
+                  </ButtonUI>
+                </div>
+              </div>
+            </td>
+          </tr>
         </>
       );
-    });
-  };
+    })
+};
 
- toggleModal = () => {
-    this.setState({ modalOpen: !this.state.modalOpen });
-  };
-
-  render() {
+render() {
     return (
       <div className="container">
                     <h3 className="text-center">Detail Transaksi</h3>
@@ -104,9 +140,8 @@ componentDidMount() {
                         <tr>
                         <th>No</th>
                         <th>User</th>
-                        <th>Status</th>
+                        <th>Deliv.Fee</th>
                         <th>Total</th>
-                        <th>Aksi</th>
                         <th></th>
                         </tr>
                     </thead>
@@ -115,7 +150,6 @@ componentDidMount() {
                     </tbody>
                     </table>
         </div>
-        
     );
   }
 }

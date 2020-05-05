@@ -60,11 +60,9 @@ componentDidMount() {
       );
     });
   };
-
 //  toggleModal = () => {
 //     this.setState({ modalOpen: !this.state.modalOpen });
 //   };
-
   render() {
     return (
       <div className="container">
@@ -87,5 +85,4 @@ componentDidMount() {
     );
   }
 }
-
 export default AdminItem;

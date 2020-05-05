@@ -12,11 +12,19 @@ import swal from "sweetalert";
 class Cart extends React.Component {
     state = {
         dataKeranjang: [],
+        dataKeranjangDetail: {
+            productId: 0,
+            productName: "",
+            productImage: "",
+            userId: 0,
+            userName: "",
+            productPrice: 0,
+            quantity: 0,
+        },
         totalBayar: 0,
         idBayar: [],
-        checkOutItems: [],
         delivery: 0,
-        bayarActive: false
+        bayarActive: false,
     }
 
     componentDidMount () {
@@ -33,6 +41,21 @@ class Cart extends React.Component {
         })
         .then((res) =>{
             this.setState({ dataKeranjang: res.data })
+            this.setState({ 
+                dataKeranjangDetail: {
+                    ...this.state.dataKeranjangDetail,
+                    productId: res.data[0]['productId'],
+                    productPrice: res.data[0].product.price,
+                    productImage: res.data[0].product.image,
+                    productName: res.data[0].product.productName,
+                    quantity: res.data[0]['quantity'],
+                    userId: this.props.user.id,
+                    userName: this.props.user.name,
+                }
+            })
+            // console.log('ur bounty')
+            // console.log(this.state.dataKeranjangDetail)
+            
         })
         .catch((err) =>{
             console.log(err)
@@ -73,19 +96,58 @@ class Cart extends React.Component {
     }
 
     btnBayar = () => {//
-        console.log(this.state.idBayar[0])
+        // post transaksi
+        let transaksiId = 0
+        Axios.post(`${API_URL}transactions`,{
+            userId: this.props.user.id,
+            totalPrice: this.state.totalBayar,
+            deliv: this.state.delivery,
+            status: 'pending',
+        })
+        .then((res) => {
+            this.biarGarefresh()
+            // get ID transaksi
+            Axios.get(`${API_URL}transactions`)
+            .then((res) => {
+                for (let i = 0; i<res.data.length; i++){
+                    if (i == res.data.length-1){
+                        transaksiId = parseInt(i+1)
+                        // Post Transaction Detail
+                            Axios.post(`${API_URL}transactionsd`,{
+                                detail: this.state.dataKeranjangDetail,
+                                transactionId: transaksiId })
+                            .then((res) => {alert('sukses post Transaksi detail')
+                                this.biarGarefresh()
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                                alert('error post Transaksi detail')}) //called
+                        // Post Transaction Detail   
+                    }
+                }
+                swal("Transaksi diproses", `Terimakasih` , "success");
+            
+            })
+            .catch((err) => {alert('error get ID transaksi')})
+            // get ID transaksi
+        })
+        .catch((err) => {alert('error post transaksi')
+        })
+        // post transaksi
+
+
+
+        // Delete data di cart
         for (let i=0; i<this.state.idBayar[0].length; i++){
             Axios.delete(`${API_URL}carts/${this.state.idBayar[0][i]}`)
-            .then((res) => {
-                this.biarGarefresh()
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .then((res)=>{
+                    this.biarGarefresh()
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
         }
         this.props.reduceTotalCart(this.props.user.id,0)
-        this.addToTransactionHandler()
-        swal("Transaksi diproses", `Terimakasih` , "success");
     }
 
     // checkBoxHandler = (e,idx) => {
@@ -100,21 +162,6 @@ class Cart extends React.Component {
     //         })
     //     }
     // }
-
-    addToTransactionHandler = (total) => {
-        Axios.post(`${API_URL}transactions`, {
-            userId: this.props.user.id,
-            totalPrice: this.state.totalBayar,
-            status: "pending",
-            transactionDetail: this.state.dataKeranjang
-        })
-        .then((res) => {
-            console.log(res)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-    }
 
     renderCart = () => { 
         return this.state.dataKeranjang.map((val, idx) => {

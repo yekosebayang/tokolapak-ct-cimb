@@ -39,7 +39,7 @@ class App extends React.Component {
         <Route exact path="/admin/dashboard" component={AdminDashboard} />;
         <Route exact path="/admin/payment" component={AdminPay} />;
         <Route exact path="/admin/Report/user" component={AdminReportUser} />;
-        <Route exact path="/admin/Report/item" component={AdminReportItem} />;
+        {/* <Route exact path="/admin/Report/item" component={AdminReportItem} />; */}
         </>
         ) 
         
@@ -106,8 +106,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
  * userId
  * total belanja
  * status -> "pending"
- * tanggal belanja
- * tanggal selesai -> ""
  * 
  * TRANSACTION_DETAILS
  * transactionId

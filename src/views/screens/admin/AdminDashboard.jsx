@@ -63,7 +63,7 @@ class AdminDashboard extends React.Component {
             }}
           >
             <td> {id} </td>
-            <td> {productName} </td>
+            <td> {productName} yey </td>
             <td>
               {" "}
               {new Intl.NumberFormat("id-ID", {
@@ -108,7 +108,7 @@ class AdminDashboard extends React.Component {
                     onClick={(_) => this.editBtnHandler(idx)}
                     type="contained"
                   >
-                    Edit
+                    Edit yey
                   </ButtonUI>
                   <ButtonUI
                     className="mt-3" type="textual"
