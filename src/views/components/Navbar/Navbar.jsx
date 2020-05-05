@@ -29,7 +29,8 @@ class Navbar extends React.Component {
     searcBarInput: "",
     dropdownOpen: false,
     productName: "",
-    totalCart: 0
+    totalCart: 0,
+    currentId: 0
   };
 
   onFocus = () => {
@@ -49,33 +50,21 @@ class Navbar extends React.Component {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   };
 
-  // getCartNumber = () => {
-  //   Axios.get(`${API_URL}carts`,{
-  //     params: {
-  //       userId : this.props.user.id
-  //     }
-  //   })
-  //   .then((res) => {
-  //     let temp = 0
-  //     for (let i=0; i<res.data.length; i++){
-  //       temp += res.data[i]["quantity"]
-  //     }
-  //     this.setState({totalCart: temp})      
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //   })
-  // }
-
-  componentDidMount(){
-    let id = this.props.user.id
-    this.props.totalCart(id)
+  componentDidUpdate(){
+    if (this.props.user.id != this.state.currentId){
+      let id = this.props.user.id
+      this.props.totalCart(id)
+    }
   }
 
-  inputHandler = (e) => {
+  componentDidMount(){
+    this.setState({currentId: this.props.user.id})
+    this.props.totalCart(this.props.user.id)
+    // console.log(this.props.user.id)
+  }
+
+  inputHandler = (e) => { // search bar
     this.setState({cariData: e.target.value});
-    console.log(this.state.cariData)
-    console.log(this.props.navb)
   }
 
   render() {
@@ -98,7 +87,7 @@ class Navbar extends React.Component {
             type="text"
             placeholder="Cari produk impianmu disini"
             onChange={(e) => this.props.cariData(e.target.value)}
-            // value={this.state.searcBarInput}
+            value={this.props.srch.searchData}
           />
         </div>
         <div className="d-flex flex-row align-items-center">
@@ -126,10 +115,15 @@ class Navbar extends React.Component {
                   </DropdownMenu>
                   ):(
                     <DropdownMenu className="mt-2">
-                      <DropdownItem>Whislist</DropdownItem>
+                      <DropdownItem>
+                        <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to="/wish" >
+                        Whislists
+                        </Link>
+                      </DropdownItem>
                       <DropdownItem>History</DropdownItem>
                     </DropdownMenu>
-
                   )
                 }
               </Dropdown>
@@ -187,6 +181,7 @@ class Navbar extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    srch: state.srch,
     cart: state.cart
   };
 };
