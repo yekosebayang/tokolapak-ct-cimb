@@ -82,22 +82,29 @@
       "userId": 2,
       "totalPrice": 10000000,
       "deliv": 0,
-      "status": "pending",
+      "status": "terima",
       "id": 1
     },
     {
       "userId": 1,
       "totalPrice": 24000000,
       "deliv": 0,
-      "status": "pending",
+      "status": "terima",
       "id": 2
     },
     {
       "userId": 1,
       "totalPrice": 2700000,
       "deliv": 0,
-      "status": "pending",
+      "status": "terima",
       "id": 3
+    },
+    {
+      "userId": 2,
+      "totalPrice": 20000000,
+      "deliv": 0,
+      "status": "terima",
+      "id": 4
     }
   ],
   "transactionsd": [
@@ -136,6 +143,18 @@
       },
       "transactionId": 3,
       "id": 3
+    },
+    {
+      "detail": {
+        "productId": 2,
+        "productName": "iPad Pro 3",
+        "productImage": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
+        "userId": 2,
+        "productPrice": 15000000,
+        "quantity": 1
+      },
+      "transactionId": 4,
+      "id": 4
     }
   ]
 }

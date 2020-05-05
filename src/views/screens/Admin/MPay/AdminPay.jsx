@@ -21,7 +21,7 @@ terimaBtnHandler = (id,userId,totalPrice,deliv) => {
       userId,
       totalPrice,
       deliv,
-      status: "pending",
+      status: "terima",
       })
       .then((res) => {
         // swal("Success!", `transaction has been approved`, "success");
@@ -57,23 +57,9 @@ renderTransactionList = () => {
       const { id, detail, transaction } = val;
       return (
         <>
-          <tr
-            onClick={() => {
-              if (this.state.activeProducts.includes(idx)) {
-                this.setState({
-                  activeProducts: [
-                    ...this.state.activeProducts.filter((item) => item !== idx),
-                  ],
-                });
-              } else {
-                this.setState({
-                  activeProducts: [...this.state.activeProducts, idx],
-                });
-              }
-            }}
-          >
+          <tr>
             <td> {id} </td>
-            <td> {detail.userName}</td>
+            <td> {detail.userId}</td>
             <td>
               {" "}
               {new Intl.NumberFormat("id-ID", {
@@ -87,6 +73,29 @@ renderTransactionList = () => {
                 style: "currency",
                 currency: "IDR",
               }).format(transaction.totalPrice)}{" "}
+            </td>
+            <td>
+              <button
+                onClick={() => {
+                if (this.state.activeProducts.includes(idx)) {
+                  this.setState({
+                    activeProducts: [
+                      ...this.state.activeProducts.filter((item) => item !== idx),
+                    ],
+                  });
+                } else {
+                  this.setState({
+                    activeProducts: [...this.state.activeProducts, idx],
+                  });
+                }
+              }}
+              >tampil</button>
+            </td>
+            <td>
+              <button
+                  onClick={this.terimaBtnHandler(id,detail.userId,transaction.totalPrice,transaction.deliv)}>
+                  terima
+              </button>
             </td>
           </tr>
           <tr key={`Datatransaksi-${transaction.id}`}
@@ -117,11 +126,6 @@ renderTransactionList = () => {
                   </div>
                 </div>
                 <div className="d-flex flex-column align-items-center">
-                  <ButtonUI
-                    onClick={this.terimaBtnHandler(id,detail.userId,transaction.totalPrice,transaction.deliv)}
-                    type="contained"
-                  >terima
-                  </ButtonUI>
                 </div>
               </div>
             </td>

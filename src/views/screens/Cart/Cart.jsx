@@ -53,8 +53,6 @@ class Cart extends React.Component {
                     userName: this.props.user.name,
                 }
             })
-            // console.log('ur bounty')
-            // console.log(this.state.dataKeranjangDetail)
             
         })
         .catch((err) =>{
