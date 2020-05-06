@@ -16,21 +16,36 @@ class AdminPay extends React.Component {
   };
 
 
-terimaBtnHandler = (id,userId,totalPrice,deliv) => {
-    Axios.put(`${API_URL}transactions/${id}`,{
-      userId,
-      totalPrice,
-      deliv,
-      status: "terima",
-      })
-      .then((res) => {
+terimaBtnHandler = (id) => {
+  Axios.patch(`${API_URL}transactions/${id}`,{
+    status: "terima",
+  })
+  .then((res) => {
+    console.log("is it called?")
         // swal("Success!", `transaction has been approved`, "success");
+        this.getTransactionDetail()
       })
       .catch((err) => {
         // swal("Error!", "Your item could not be edited", "error");  
         console.log(err);
       });
 }
+
+pendingBtnHandler = (id) => {
+  Axios.patch(`${API_URL}transactions/${id}`,{
+    status: "pending",
+  })
+  .then((res) => {
+    console.log("is it called?")
+        // swal("Success!", `transaction has been approved`, "success");
+        this.getTransactionDetail()
+      })
+      .catch((err) => {
+        // swal("Error!", "Your item could not be edited", "error");  
+        console.log(err);
+      });
+}
+
 
 getTransactionDetail = () => {
   Axios.get(`${API_URL}transactionsd`, {
@@ -93,8 +108,14 @@ renderTransactionList = () => {
             </td>
             <td>
               <button
-                  onClick={this.terimaBtnHandler(id,detail.userId,transaction.totalPrice,transaction.deliv)}>
+                  onClick={(__)=>this.terimaBtnHandler(id)}>
                   terima
+              </button>
+            </td>
+            <td>
+            <button
+                  onClick={(__)=>this.pendingBtnHandler(id)}>
+                  pending
               </button>
             </td>
           </tr>
