@@ -12,6 +12,7 @@ import Navbar from "./views/components/Navbar/Navbar";
 import AuthScreen from "./views/screens/Auth/AuthScreen";
 import ProductDetails from "./views/screens/ProductDetails/ProductDetails";
 import AdminDashboard from "./views/screens/admin/AdminDashboard";
+import { Link } from "react-router-dom";
 import { userKeepLogin, cookieChecker } from "./redux/actions";
 import Cart from "./views/screens/Cart/Cart";
 import Wish from "./views/screens/Wish/wish";
@@ -32,6 +33,27 @@ class App extends React.Component {
     }
 }
 
+  renderLoginRoutes = () => {
+    if (this.props.user.id){
+      return(
+        <>
+            <Route exact path="/cart" component={Cart} />
+            <Route exact path="/wish" component={Wish} />
+            <Route exact path="/history" component={History} />
+        </>
+      )
+    } else {
+      return(
+        <>
+        <div className="text-center">
+          <h1>Page Not Found</h1>
+          <Link to="/auth/login">Login</Link>
+        </div>
+        </>
+      )
+    }
+  }
+
   renderAdminRoutes = () => {
     if (this.props.user.role === "admin") {
       return(
@@ -44,13 +66,15 @@ class App extends React.Component {
         ) 
         
     } else{
-      return <h1 className="text-center">Page Not Found</h1>
+      return (
+      <div> 
+        <h1 className="text-center">Page Not Found</h1>
+      </div>
+      )
     }
   };
 
   render() {
-    // console.log("app user check")
-    // console.log(this.props.user.id)
     if (this.props.user.cookieChecked) {
       return (
         <>
@@ -60,9 +84,7 @@ class App extends React.Component {
             <Route exact path="/home/:opt" component={Home} />
             <Route exact path="/auth/:pg" component={AuthScreen} />
             <Route exact path="/product/:id" component={ProductDetails} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/wish" component={Wish} />
-            <Route exact path="/history" component={History} />
+            {this.renderLoginRoutes()}
             {this.renderAdminRoutes()}
           </Switch>
           <div style={{ height: "120px" }} />

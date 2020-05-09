@@ -49,3 +49,10 @@ export const editTotalCartHandler = (id,quantity) => {//nambah cart
         })
     }
 }
+
+export const updateCartTotal = (bool) => {//nambah cart
+    return { // anggap dispatch = return
+        type: "UPDATE_CART_TOTAL",
+        payload: bool
+    }           
+}

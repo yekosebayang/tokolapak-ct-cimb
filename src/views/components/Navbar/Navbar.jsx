@@ -15,7 +15,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "./Navbar.css";
 import ButtonUI from "../Button/Button";
-import { logoutHandler, searchHandler, totalCartHandler } from "../../../redux/actions";
+import { logoutHandler, searchHandler, totalCartHandler, updateCartTotal } from "../../../redux/actions";
 
 
 const CircleBg = ({ children }) => {
@@ -28,8 +28,8 @@ class Navbar extends React.Component {
     searcBarInput: "",
     dropdownOpen: false,
     productName: "",
-    totalCart: 0,
-    currentId: 0
+    // totalCart: 0,
+    // currentId: 0
   };
 
   onFocus = () => {
@@ -50,15 +50,21 @@ class Navbar extends React.Component {
   };
 
   componentDidUpdate(){
-    if (this.props.user.id != this.state.currentId){
+    // if (this.props.user.id != this.state.currentId){
+    //   let id = this.props.user.id
+    //   this.props.totalCart(id)
+    // }
+    if (this.props.cart.cartChange == true){
       let id = this.props.user.id
       this.props.totalCart(id)
+      this.props.updateCartTotal(false)
     }
   }
 
   componentDidMount(){
-    this.setState({currentId: this.props.user.id})
+    // this.setState({currentId: this.props.user.id})
     this.props.totalCart(this.props.user.id)
+    // this.props.updateCartTotal(true)
     // console.log(this.props.user.id)
   }
 
@@ -213,7 +219,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   onLogout: logoutHandler,
   cariData: searchHandler,
-  totalCart: totalCartHandler
+  totalCart: totalCartHandler,
+  updateCartTotal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

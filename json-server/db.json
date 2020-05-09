@@ -76,7 +76,14 @@
     }
   ],
   "carts": [],
-  "wishlists": [],
+  "wishlists": [
+    {
+      "userId": 2,
+      "productId": 2,
+      "quantity": 1,
+      "id": 1
+    }
+  ],
   "transactions": [
     {
       "userId": 2,
@@ -89,14 +96,14 @@
       "userId": 1,
       "totalPrice": 24000000,
       "deliv": 0,
-      "status": "terima",
+      "status": "pending",
       "id": 2
     },
     {
       "userId": 1,
       "totalPrice": 2700000,
       "deliv": 0,
-      "status": "terima",
+      "status": "pending",
       "id": 3
     },
     {
@@ -105,6 +112,13 @@
       "deliv": 0,
       "status": "terima",
       "id": 4
+    },
+    {
+      "userId": 2,
+      "totalPrice": 5000000,
+      "deliv": 0,
+      "status": "pending",
+      "id": 5
     }
   ],
   "transactionsd": [
@@ -155,6 +169,18 @@
       },
       "transactionId": 4,
       "id": 4
+    },
+    {
+      "detail": {
+        "productId": 1,
+        "productName": "iPhone 7+",
+        "productImage": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
+        "userId": 2,
+        "productPrice": 5000000,
+        "quantity": 1
+      },
+      "transactionId": 5,
+      "id": 5
     }
   ]
 }

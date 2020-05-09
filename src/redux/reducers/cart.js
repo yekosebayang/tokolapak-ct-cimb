@@ -1,5 +1,6 @@
 const init_state = {
-  qty: 0
+  qty: 0,
+  cartChange: true
 };
 
 export default (state = init_state, action) => {
@@ -9,7 +10,13 @@ export default (state = init_state, action) => {
         ...state,
         qty: action.payload
       };
+      case "UPDATE_CART_TOTAL":
+        return { 
+          ...state,
+          cartChange: action.payload
+        };
     default:
       return { ...state,};
      }
 };
+
